@@ -35,6 +35,12 @@ jobs:
           path: website
           fetch-depth: 0 # full history required to determine last edit
 
+      - name: Fetch full history for submodules
+        working-directory: website
+        run: |
+          git submodule foreach --recursive "git fetch --unshallow 2>/dev/null || true"
+          git submodule foreach --recursive "git fetch --all"
+
       - name: Fetch - precice develop
         uses: actions/checkout@v4
         with:

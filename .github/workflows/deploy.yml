@@ -41,6 +41,10 @@ jobs:
           git submodule foreach --recursive "git fetch --unshallow 2>/dev/null || true"
           git submodule foreach --recursive "git fetch --all"
 
+      - name: Inject last_modified_at dates from submodules
+        working-directory: website
+        run: bash inject_dates.sh
+
       - name: Fetch - precice develop
         uses: actions/checkout@v4
         with:
@@ -77,6 +81,12 @@ jobs:
         with:
           bundler-cache: true
           working-directory: website
+
+      - name: Patch jekyll-last-modified-at to respect frontmatter
+        working-directory: website
+        run: |
+          sed -i 's/item\.data\["last_modified_at"\] = Determinator/item.data["last_modified_at"] ||= Determinator/' \
+          vendor/bundle/ruby/*/gems/jekyll-last-modified-at-*/lib/jekyll-last-modified-at/hook.rb
 
       - name: Build website
         working-directory: website

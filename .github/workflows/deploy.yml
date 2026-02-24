@@ -37,9 +37,7 @@ jobs:
 
       - name: Fetch full history for submodules
         working-directory: website
-        run: |
-          git submodule foreach --recursive "git fetch --unshallow 2>/dev/null || true"
-          git submodule foreach --recursive "git fetch --all"
+        run: git submodule foreach --recursive "git fetch --unshallow --all 2>/dev/null || git fetch --all"
 
       - name: Inject last_modified_at dates from submodules
         working-directory: website
@@ -85,8 +83,15 @@ jobs:
       - name: Patch jekyll-last-modified-at to respect frontmatter
         working-directory: website
         run: |
-          sed -i 's/item\.data\["last_modified_at"\] = Determinator/item.data["last_modified_at"] ||= Determinator/' \
-          vendor/bundle/ruby/*/gems/jekyll-last-modified-at-*/lib/jekyll-last-modified-at/hook.rb
+            set -euo pipefail
+            shopt -s nullglob
+            hook_files=(vendor/bundle/ruby/*/gems/jekyll-last-modified-at-*/lib/jekyll-last-modified-at/hook.rb)
+            if [ "${#hook_files[@]}" -ne 1 ]; then
+              echo "Expected exactly one jekyll-last-modified-at hook.rb file, found ${#hook_files[@]}:" >&2
+              printf '  %s\n' "${hook_files[@]}" >&2
+              exit 1
+            fi
+            sed -i 's/item\.data\["last_modified_at"\] = Determinator/item.data["last_modified_at"] ||= Determinator/' "${hook_files[0]}"
 
       - name: Build website
         working-directory: website

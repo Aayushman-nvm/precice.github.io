@@ -9,44 +9,40 @@
 
 set -euo pipefail
 
-WEBSITE_ROOT="$(pwd)"
-
 git submodule foreach --recursive '
   echo "==> Processing submodule: $displaypath"
 
-  # Loop over every markdown file tracked by this submodule
   git ls-files "*.md" "*.markdown" | while IFS= read -r file; do
 
-    # Get the last commit date for this specific file
     last_date=$(git log -1 --date=format:"%Y-%m-%d %H:%M:%S" --pretty=format:"%cd" -- "$file" 2>/dev/null)
 
-    # Skip if git returned nothing (untracked or no history)
-    [ -z "$last_date" ] && continue
+    if [ -z "$last_date" ]; then
+      echo "    SKIP (no git date): $file"
+      continue
+    fi
 
-    # Full path: parent repo root + submodule path + file
     filepath="$toplevel/$displaypath/$file"
 
-    # Skip if file does not exist on disk
-    [ -f "$filepath" ] || continue
+    if [ ! -f "$filepath" ]; then
+      echo "    SKIP (not on disk): $file"
+      continue
+    fi
 
-    # Check if file starts with a YAML frontmatter block
-    if head -1 "$filepath" | grep -q "^---"; then
+    if awk '\''NR==1 { if ($0 == "---") { in_front=1; next } else { exit 1 } } in_front && NR>1 && $0 == "---" { exit 0 } END { exit 1 }'\'' "$filepath"; then
 
-      # If last_modified_at already exists in frontmatter, replace it
       if grep -q "^last_modified_at:" "$filepath"; then
         sed -i "s|^last_modified_at:.*|last_modified_at: $last_date|" "$filepath"
-
-      # Otherwise insert it after the opening --- line
       else
         sed -i "0,/^---/{s|^---|---\nlast_modified_at: $last_date|}" "$filepath"
       fi
 
     else
-      # No frontmatter at all — prepend one
       tmpfile=$(mktemp)
       printf -- "---\nlast_modified_at: %s\n---\n" "$last_date" | cat - "$filepath" > "$tmpfile"
       mv "$tmpfile" "$filepath"
     fi
+
+    echo "    OK: $file -> $last_date"
 
   done
 

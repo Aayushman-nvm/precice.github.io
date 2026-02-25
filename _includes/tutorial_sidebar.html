@@ -1,0 +1,213 @@
+{% comment %}
+  tutorial_sidebar.html
+  =====================
+  Renders the tutorials sidebar automatically from site.pages at build time.
+  All navigation decisions live in _data/tutorial_sidebar_config.yml for
+  exclusive links like "Basic cases" or named groups in "All tutorials".
+  Tutorial READMEs need no special front matter beyond `title` and `permalink`.
+
+  STRUCTURE:
+    1. Introduction  — hardcoded (not in submodule)
+    2. Basic cases   — from tutorial_sidebar_config.yml `featured` list
+    3. All tutorials — auto-discovered flat pages + named groups, interleaved
+                       alphabetically by display name
+{% endcomment %}
+
+{% comment %}
+  ============================================================
+  STEP 1 — Collect tutorial pages into parallel lookup arrays
+  ============================================================
+{% endcomment %}
+{% assign tutorial_pages = '' | split: '' %}
+{% assign tutorial_permalinks = '' | split: '' %}
+{% for p in site.pages %}
+  {% if p.path contains 'imported/tutorials/' %}
+    {% assign tutorial_pages = tutorial_pages | push: p %}
+    {% assign tutorial_permalinks = tutorial_permalinks | push: p.permalink %}
+  {% endif %}
+{% endfor %}
+
+{% comment %}
+  ============================================================
+  STEP 2 — Build lookup sets from the data file
+  ============================================================
+  featured_urls: used to suppress active class in Basic cases only.
+                 Featured pages ARE rendered in All tutorials with normal
+                 active class — that is their canonical active location.
+  grouped_urls:  used to exclude pages from the flat list in All tutorials
+                 (they appear inside their named group instead).
+{% endcomment %}
+{% assign featured_urls = '' | split: '' %}
+{% for f in site.data.tutorial_sidebar_config.featured %}
+  {% assign featured_urls = featured_urls | push: f.permalink %}
+{% endfor %}
+
+{% assign grouped_urls = '' | split: '' %}
+{% for group in site.data.tutorial_sidebar_config.groups %}
+  {% for gentry in group.permalinks %}
+    {% assign grouped_urls = grouped_urls | push: gentry.url %}
+  {% endfor %}
+{% endfor %}
+
+{% comment %}
+  ============================================================
+  STEP 3 — Build the unified All tutorials entry list
+  ============================================================
+  Flat pages: all tutorial pages NOT in any group.
+              Featured pages ARE included here as flat entries if they
+              are not also in a group (e.g. Quickstart).
+              Featured pages that ARE in a group (e.g. Flow over a heated
+              plate) will appear inside their group, not as flat entries.
+  Group entries: one per group, sorted by group name alongside flat pages.
+{% endcomment %}
+{% assign all_entries = '' | split: '' %}
+
+{% for p in tutorial_pages %}
+  {% unless grouped_urls contains p.permalink %}
+    {% assign raw_idx = forloop.index0 %}
+    {% assign padded_idx = raw_idx | prepend: '000' | slice: -4, 4 %}
+    {% assign entry = p.title | append: '^flat^' | append: padded_idx %}
+    {% assign all_entries = all_entries | push: entry %}
+  {% endunless %}
+{% endfor %}
+
+{% for group in site.data.tutorial_sidebar_config.groups %}
+  {% assign entry = group.name | append: '^group^' | append: group.name %}
+  {% assign all_entries = all_entries | push: entry %}
+{% endfor %}
+
+{% assign all_entries = all_entries | sort %}
+
+{% comment %}
+  ============================================================
+  STEP 4 — Sort featured list by order field
+  ============================================================
+{% endcomment %}
+{% assign sorted_featured = site.data.tutorial_sidebar_config.featured | sort: 'order' %}
+
+{% comment %}
+  ============================================================
+  RENDER
+  ============================================================
+{% endcomment %}
+<nav aria-label="Tutorials">
+  <ul id="mysidebar" class="nav">
+    <li class="sidebarTitle">Tutorials</li>
+
+    {% comment %}
+      ----------------------------------------------------------
+      SECTION 1: Introduction
+      ----------------------------------------------------------
+    {% endcomment %}
+    <li>
+      <a title="Introduction" href="#">Introduction</a>
+      <ul>
+        <li
+          {% if page.url == '/tutorials.html' %}
+            class="active"
+          {% endif %}
+        >
+          <a title="Overview" href="tutorials.html">Overview</a>
+        </li>
+        <li
+          {% if page.url == '/tutorials-visualization.html' %}
+            class="active"
+          {% endif %}
+        >
+          <a title="Visualization" href="tutorials-visualization.html">Visualization</a>
+        </li>
+      </ul>
+    </li>
+
+    {% comment %}
+      ----------------------------------------------------------
+      SECTION 2: Basic cases
+      ----------------------------------------------------------
+    {% endcomment %}
+    {% if sorted_featured.size > 0 %}
+      <li>
+        <a title="Basic cases" href="#">Basic cases</a>
+        <ul>
+          {% for f in sorted_featured %}
+            {% assign f_page = null %}
+            {% for pl in tutorial_permalinks %}
+              {% if pl == f.permalink %}
+                {% assign f_idx = forloop.index0 %}
+                {% assign f_page = tutorial_pages[f_idx] %}
+              {% endif %}
+            {% endfor %}
+            {% if f_page %}
+              {% assign display_title = f.title | default: f_page.title %}
+              <li>
+                <a title="{{ display_title }}" href="{{ f_page.permalink | remove: '/' }}">{{ display_title }}</a>
+              </li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+      </li>
+    {% endif %}
+
+    {% comment %}
+      ----------------------------------------------------------
+      SECTION 3: All tutorials
+      ----------------------------------------------------------
+    {% endcomment %}
+    <li>
+      <a title="All tutorials" href="#">All tutorials</a>
+      <ul>
+        {% for entry in all_entries %}
+          {% if entry contains '^flat^' %}
+            {% assign flat_parts = entry | split: '^flat^' %}
+            {% assign flat_idx = flat_parts[1] | plus: 0 %}
+            {% assign p = tutorial_pages[flat_idx] %}
+            {% if p %}
+              <li
+                {% if page.url == p.url %}
+                  class="active"
+                {% endif %}
+              >
+                <a title="{{ p.title }}" href="{{ p.permalink | remove: '/' }}">{{ p.title }}</a>
+              </li>
+            {% endif %}
+
+          {% elsif entry contains '^group^' %}
+            {% assign group_parts = entry | split: '^group^' %}
+            {% assign group_name = group_parts[1] %}
+            {% for group in site.data.tutorial_sidebar_config.groups %}
+              {% if group.name == group_name %}
+                <li class="subfolders">
+                  <a title="{{ group.name }}" href="#">{{ group.name }}</a>
+                  <ul>
+                    {% for gentry in group.permalinks %}
+                      {% assign gp = null %}
+                      {% for pl in tutorial_permalinks %}
+                        {% if pl == gentry.url %}
+                          {% assign gp_idx = forloop.index0 %}
+                          {% assign gp = tutorial_pages[gp_idx] %}
+                        {% endif %}
+                      {% endfor %}
+                      {% if gp %}
+                        {% assign g_display = gentry.title | default: gp.title %}
+                        <li
+                          {% if page.url == gp.url %}
+                            class="active"
+                          {% endif %}
+                        >
+                          <a title="{{ g_display }}" href="{{ gentry.url | remove: '/' }}">{{ g_display }}</a>
+                        </li>
+                      {% endif %}
+                    {% endfor %}
+                  </ul>
+                </li>
+              {% endif %}
+            {% endfor %}
+          {% endif %}
+        {% endfor %}
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+<script>
+  $('#mysidebar li.active').parents('li').toggleClass('active');
+</script>

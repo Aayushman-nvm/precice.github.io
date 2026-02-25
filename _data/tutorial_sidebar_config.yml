@@ -1,0 +1,103 @@
+# _data/tutorial_sidebar_config.yml
+# ===================================
+# Single source of truth for tutorial sidebar navigation decisions.
+# Lives in the MAIN SITE REPO (_data/), never in the tutorials submodule.
+#
+# HUGO MIGRATION:
+#   Read via $.Site.Data.tutorial_sidebar_config — identical structure.
+#   Only the template syntax changes, not this file.
+#
+# TITLE OVERRIDES:
+#   Both `featured` entries and group `permalinks` support an optional `title`
+#   field. If present it overrides the verbose README title with a short display
+#   name matching the original tutorial_sidebar.yml. If absent, the template
+#   falls back to the page's own `title` front matter.
+#
+# ADDING A NEW TUTORIAL:
+#   - Appears in "All tutorials" automatically with no changes here.
+#   - To feature it in Basic cases: add an entry under `featured`.
+#   - To put it in a named group: add an entry under the group's `permalinks`.
+#   - To create a new group: add a new block under `groups`.
+
+# ------------------------------------------------------------------------------
+# Basic cases
+# Rendered in ascending `order`. Title overrides the README title if present.
+# ------------------------------------------------------------------------------
+featured:
+  - permalink: quickstart.html
+    order: 1
+    title: Quickstart
+  - permalink: tutorials-flow-over-heated-plate.html
+    order: 2
+    title: Flow over a heated plate
+  - permalink: tutorials-partitioned-heat-conduction.html
+    order: 3
+    title: Partitioned heat conduction
+  - permalink: tutorials-perpendicular-flap.html
+    order: 4
+    title: Perpendicular flap
+
+# ------------------------------------------------------------------------------
+# Subgroups
+# Each group becomes a collapsible sub-folder in "All tutorials".
+# Groups and flat pages are interleaved alphabetically by display name —
+# the `name` field is used as the sort key alongside flat page titles.
+# `order` is NOT used for positioning within All tutorials (alphabetical
+# interleaving handles that). `order` is kept for potential future use
+# and documents editorial intent.
+# Pages within each group are sorted alphabetically by their display title.
+# ------------------------------------------------------------------------------
+groups:
+  - name: Channel transport
+    order: 1
+    permalinks:
+      - url: tutorials-channel-transport.html
+        title: Basic variant
+      - url: tutorials-channel-transport-reaction.html
+        title: Reaction
+      - url: tutorials-channel-transport-particles.html
+        title: Particles
+
+  - name: Flow over a heated plate
+    order: 2
+    permalinks:
+      - url: tutorials-flow-over-heated-plate.html
+        title: Basic variant
+      - url: tutorials-flow-over-heated-plate-nearest-projection.html
+        title: Nearest-projection mapping
+      - url: tutorials-flow-over-heated-plate-steady-state.html
+        title: Steady state
+      - url: tutorials-flow-over-heated-plate-two-meshes.html
+        title: Two meshes
+
+  - name: Partitioned flow
+    order: 3
+    permalinks:
+      - url: tutorials-partitioned-backwards-facing-step.html
+        title: Partitioned flow over a b.f. step
+      - url: tutorials-flow-over-heated-plate-partitioned-flow.html
+        title: Partitioned flow over heated plate
+      - url: tutorials-partitioned-pipe.html
+        title: Partitioned pipe
+      - url: tutorials-partitioned-pipe-two-phase.html
+        title: Partitioned pipe two-phase
+
+  - name: Partitioned heat conduction
+    order: 4
+    permalinks:
+      - url: tutorials-partitioned-heat-conduction.html
+        title: Basic variant
+      - url: tutorials-partitioned-heat-conduction-complex.html
+        title: Complex variant
+      - url: tutorials-partitioned-heat-conduction-direct.html
+        title: Direct mesh access
+      - url: tutorials-partitioned-heat-conduction-overlap.html
+        title: Overlapping Schwarz
+
+  - name: Perpendicular flap
+    order: 5
+    permalinks:
+      - url: tutorials-perpendicular-flap.html
+        title: Basic variant
+      - url: tutorials-perpendicular-flap-stress.html
+        title: Stress variant

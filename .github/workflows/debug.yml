@@ -1,0 +1,36 @@
+name: Debug Package Names
+
+on:
+  workflow_dispatch:
+
+jobs:
+  debug:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        ubuntu: [22.04, 24.04]
+
+    steps:
+      - name: Check packages on ${{ matrix.ubuntu }}
+        run: |
+          docker run --rm ubuntu:${{ matrix.ubuntu }} bash -c "
+            set -e
+            apt-get update -qq
+
+            for pkg in \
+              cmake \
+              libboost-dev \
+              libvtk9-dev \
+              libopenmpi-dev \
+              liblapack-dev \
+              libdune-common-dev \
+              pybind11-dev \
+              python3 \
+              libmetis-dev \
+              git
+            do
+              echo '--- Checking' \$pkg '---'
+              apt-cache policy \$pkg || true
+            done
+          "

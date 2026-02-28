@@ -1,0 +1,14 @@
+packages:
+  required:
+    - cmake
+    - libboost-dev
+    - libvtk9-dev
+    - libopenmpi-dev
+    - liblapack-dev
+    - libdune-common-dev
+    - pybind11-dev
+    - python3
+
+  optional:
+    - libmetis-dev
+    - git

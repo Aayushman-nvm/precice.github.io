@@ -1,6 +1,9 @@
 name: Debug Package Names
 
 on:
+  push:
+    branches:
+      - issue617
   workflow_dispatch:
 
 jobs:

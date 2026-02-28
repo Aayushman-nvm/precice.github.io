@@ -49,7 +49,19 @@ def get_version_docker(ubuntu_version, package):
         "-c",
         f"apt-get update -qq && apt-cache policy {package} | grep Candidate | awk '{{print $2}}'",
     ]
-    return run_command(cmd)
+    raw = run_command(cmd)
+
+    if not raw:
+        return None
+
+    # Remove epoch (e.g. "1:")
+    if ":" in raw:
+        raw = raw.split(":", 1)[1]
+
+    # Remove Debian revision (e.g. "-1ubuntu1")
+    raw = raw.split("-", 1)[0]
+
+    return raw
 
 
 def get_version_mock(package):

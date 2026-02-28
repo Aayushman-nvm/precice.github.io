@@ -22,16 +22,15 @@ jobs:
             apt-get update -qq
 
             for pkg in \
+              build-essential \
               cmake \
-              libboost-dev \
-              libvtk9-dev \
+              libeigen3-dev \
+              libxml2-dev \
+              libboost-all-dev \
               libopenmpi-dev \
-              liblapack-dev \
-              libdune-common-dev \
-              pybind11-dev \
-              python3 \
-              libmetis-dev \
-              git
+              petsc-dev \
+              python3-dev \
+              python3-numpy
             do
               echo '--- Checking' \$pkg '---'
               apt-cache policy \$pkg || true

@@ -17,12 +17,9 @@ def load_dependencies():
 
     packages = data.get("packages", {})
 
-    required = sorted(packages.get("required", []))
-    optional = sorted(packages.get("optional", []))
-
     return {
-        "required": required,
-        "optional": optional,
+        "required": sorted(packages.get("required", [])),
+        "optional": sorted(packages.get("optional", [])),
     }
 
 
@@ -51,7 +48,7 @@ def get_version_docker(ubuntu_version, package):
     ]
     raw = run_command(cmd)
 
-    if not raw:
+    if not raw or raw == "(none)":
         return None
 
     # Remove epoch (e.g. "1:")
@@ -101,13 +98,19 @@ def write_yaml(data):
 
 
 def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--mock", action="store_true")
+    parser = argparse.ArgumentParser(
+        description="Generate Ubuntu baseline package versions using Docker."
+    )
+    parser.add_argument(
+        "--mock",
+        action="store_true",
+        help="Use mock versions instead of querying Docker (useful for testing the pipeline).",
+    )
     parser.add_argument(
         "--lts",
         nargs="+",
         required=True,
-        help="Ubuntu LTS versions (e.g. 22.04 24.04)"
+        help="Ubuntu LTS versions to query (e.g. 22.04 24.04)",
     )
     args = parser.parse_args()
 

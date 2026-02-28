@@ -1,28 +1,28 @@
-generated_at: '2026-02-28T10:29:12.141339+00:00'
+generated_at: '2026-02-28T10:48:22.311729+00:00'
 ubuntu:
   '22.04':
     optional:
-      git: 1:2.34.1-1ubuntu1.17
-      libmetis-dev: 5.1.0.dfsg-7build2
+      git: 2.34.1
+      libmetis-dev: 5.1.0.dfsg
     required:
-      cmake: 3.22.1-1ubuntu1.22.04.2
+      cmake: 3.22.1
       libboost-dev: 1.74.0.3ubuntu7
-      libdune-common-dev: 2.8.0-3
-      liblapack-dev: 3.10.0-2ubuntu1
-      libopenmpi-dev: 4.1.2-2ubuntu1
-      libvtk9-dev: 9.1.0+really9.1.0+dfsg2-3build1
-      pybind11-dev: 2.9.1-2
-      python3: 3.10.6-1~22.04.1
+      libdune-common-dev: 2.8.0
+      liblapack-dev: 3.10.0
+      libopenmpi-dev: 4.1.2
+      libvtk9-dev: 9.1.0+really9.1.0+dfsg2
+      pybind11-dev: 2.9.1
+      python3: 3.10.6
   '24.04':
     optional:
-      git: 1:2.43.0-1ubuntu7.3
-      libmetis-dev: 5.1.0.dfsg-7build3
+      git: 2.43.0
+      libmetis-dev: 5.1.0.dfsg
     required:
-      cmake: 3.28.3-1build7
+      cmake: 3.28.3
       libboost-dev: 1.83.0.1ubuntu2
-      libdune-common-dev: 2.9.0-6
-      liblapack-dev: 3.12.0-3build1.1
-      libopenmpi-dev: 4.1.6-7ubuntu2
-      libvtk9-dev: 9.1.0+really9.1.0+dfsg2-7.1build3
-      pybind11-dev: 2.11.1-2
-      python3: 3.12.3-0ubuntu2.1
+      libdune-common-dev: 2.9.0
+      liblapack-dev: 3.12.0
+      libopenmpi-dev: 4.1.6
+      libvtk9-dev: 9.1.0+really9.1.0+dfsg2
+      pybind11-dev: 2.11.1
+      python3: 3.12.3

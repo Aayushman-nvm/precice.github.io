@@ -1,0 +1,8 @@
+generated_at: '2026-02-28T10:06:00.804442Z'
+ubuntu:
+  '22.04':
+    optional: not-found
+    required: not-found
+  '24.04':
+    optional: not-found
+    required: not-found

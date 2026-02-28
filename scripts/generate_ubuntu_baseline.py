@@ -4,7 +4,7 @@ import subprocess
 import yaml
 import argparse
 from pathlib import Path
-from datetime import datetime
+from datetime import datetime, UTC
 
 ROOT = Path(__file__).resolve().parent.parent
 DEPENDENCIES_FILE = ROOT / "scripts" / "dependencies.yml"
@@ -14,7 +14,16 @@ OUTPUT_FILE = ROOT / "_data" / "ubuntu-baseline.yml"
 def load_dependencies():
     with open(DEPENDENCIES_FILE, "r") as f:
         data = yaml.safe_load(f)
-    return sorted(data.get("packages", []))
+
+    packages = data.get("packages", {})
+
+    required = sorted(packages.get("required", []))
+    optional = sorted(packages.get("optional", []))
+
+    return {
+        "required": required,
+        "optional": optional,
+    }
 
 
 def run_command(cmd):
@@ -48,22 +57,27 @@ def get_version_mock(package):
 
 
 def generate_data(lts_versions, mock=False):
-    packages = load_dependencies()
+    package_groups = load_dependencies()
+
     result = {
-        "generated_at": datetime.utcnow().isoformat() + "Z",
+        "generated_at": datetime.now(UTC).isoformat(),
         "ubuntu": {},
     }
 
     for version in lts_versions:
-        result["ubuntu"][version] = {}
+        result["ubuntu"][version] = {
+            "required": {},
+            "optional": {},
+        }
 
-        for pkg in packages:
-            if mock:
-                ver = get_version_mock(pkg)
-            else:
-                ver = get_version_docker(version, pkg)
+        for group in ["required", "optional"]:
+            for pkg in package_groups[group]:
+                if mock:
+                    ver = get_version_mock(pkg)
+                else:
+                    ver = get_version_docker(version, pkg)
 
-            result["ubuntu"][version][pkg] = ver or "not-found"
+                result["ubuntu"][version][group][pkg] = ver or "not-found"
 
     return result
 

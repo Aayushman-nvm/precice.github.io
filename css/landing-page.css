@@ -1,199 +1,53 @@
-/* Styling that only affects the landing page */
-/* For styles that also affect other pages, see customstyles.css */
+/* landing-page.css — custom rules only. Bootstrap 5 handles layout, spacing, and colour. */
 
-/* clear fixes */
-/* idea is to not touch the docs part of the website, but start from a clear state */
-
-h1[id], h2[id], h3[id], h4[id], h5[id], h6[id],
-dt[id] {
-padding-top: 0px;
-margin-top: 0px
-}
-.panel {
-  margin-bottom: 0px;
-}
-
-/* general styles */
-
-@media (max-width: 992px) {
-  .panel{
-    margin-top: 10px;
-  }
-  img.col-xs-12{
-    margin-top: 20px;
-  }
-}
+/* ── Section rhythm ─────────────────────────────────────── */
 .section {
   padding-top: 70px;
-  padding-bottom: 65px; /* +20px margin-bottom of .row */
+  padding-bottom: 70px;
 }
 .section-header {
-  margin-bottom: 0px;
-}
-.row {
-  margin-bottom: 20px;
+  margin-bottom: 1.5rem;
 }
 
+/* ── Hero ────────────────────────────────────────────────── */
+h1.title { color: #040606; }
 
-/* Jumbotron */
+/* ── USP image holder ────────────────────────────────────── */
+ul.usp { padding-inline-start: 1.75em; margin-bottom: 15px; }
+li.usp  { margin-bottom: 0.5em; }
 
-.banner {
-  margin-bottom: -20px; /* counter-balance .row margin */
-  padding: 15px 0;
-  color: #040606;
-}
-
-/* Stage */
-
-h1.title {
-  margin-top: 0px;
-  color: #040606;
-}
-h2.subtitle {
-  padding-top: 0px;
-  margin-top: -5px;
-  margin-bottom: 20px;
-  font-weight: 400;
-}
-.action-button {
-  margin-right: 4px;
-  margin-bottom: 10px;
-}
-.action-button-container {
-  margin-bottom: 20px;
-}
-#github-button #stargazers {
-  font-size: 0.857142em;
-  font-weight: 500;
-}
-
-/* USPs */
-
-ul.usp {
-  padding-inline-start: 1.75em;
-  margin-bottom: 15px;
-}
-li.usp {
-  margin-bottom: 0.5em;
-}
-div.panel.usp {
-  margin-bottom: 0;
-  flex: 1 1 auto;
-}
-div.image-holder.usp {
-  padding: 20px;
-  flex: 0 1 150px;
-}
-div.image-holder.usp > img {
-  height: 150px;
-}
-
-/* Adapter section */
-/* adapter class also used for news in the landing page */
-a.adapter {
-  text-decoration: none;
-}
-a.adapter > div.panel-primary {
-  border-color: rgba(10,118,187, .8);
-}
-a.adapter:hover > div.panel-primary {
-  background-color: rgba(10,118,187, .08);
-}
+/* ── Adapter cards ───────────────────────────────────────── */
 img.adapter {
   height: 125px;
   width: 125px;
   object-fit: contain;
-  transition: all 400ms;
+  transition: transform 400ms;
 }
-img.adapter:hover {
-   transform: scale(1.10);
-}
-img.adapter.custom-logo{
-  padding: 0;
-}
-.btn.adapter {
-  margin: 20px 0;
-}
+img.adapter:hover { transform: scale(1.10); }
+
+a.adapter:hover > .card { background-color: rgba(10,118,187,.06); }
+
 .img-equivalent {
   height: 125px;
   width: 125px;
 }
-.adapter p {
-  color: #040606;
-  margin-top: 20px;
-}
-a.adapter {
-  color: #040606;
-}
 
-/* Testimonials */
-
-i.fa-quote-left{
-  color: darkgrey;
-  padding-right: 0.5em;
-}
-i.fa-quote-left, i.fa-quote-right {
-  color: darkgrey;
-  padding-left: 0.5em;
-}
-p.quote, p.quote > a, p.quote > a:visited {
-  font-size: 19px;
-  font-weight: 400;
-  color: #333;
-}
-p.quote > a:hover,
-p.quote > a:hover > i.fa-quote-left,
-p.quote > a:hover > i.fa-quote-right  {
-  color: black;
-  text-decoration: none;
-}
+/* ── Testimonials ────────────────────────────────────────── */
 img.testimonial {
   border-radius: 50%;
-  border: 1px solid #ddd;
-  height: 100px;
-  width: 100px;
-  float: left;
-  margin: 0 15px 0 0;
+  border: 1px solid #555;
+  height: 70px;
+  width: 70px;
+  flex-shrink: 0;
 }
-.full-height {
-  flex: 1 1 auto;
-}
+p.quote { font-size: 1.05rem; font-weight: 400; }
+i.fa-quote-left, i.fa-quote-right { color: #888; }
 
-/* Open source section */
+/* ── Open source / uni logos ─────────────────────────────── */
+.uni-logo     { max-width: 100px; }
+.github-link, .github-link:hover { color: #333; text-decoration: none; }
 
-.uni-logo {
-  max-width: 100px;
-}
-.img-equivalent-uni-logo {
-  height: 125px;
-  width: 100px;
-}
-.github-link, .github-link:hover {
-  color: #333;
-  text-decoration: none;
-}
-.github-link p {
-  padding-top: 1em;
-}
-/* see bookcover.css */
-.literature-link {
-  margin-top: 20px;
-  margin-right: 10px;
-}
-
-.next-steps-link {
-  margin-top: 20px;
-  margin-right: 10px;
-}
-
-/* preCICE support */
-
-img.precice-support {
-  max-height: 200px
-}
-
-/* Logowall */
-
+/* ── Logowall ────────────────────────────────────────────── */
 .logo, .logo > div, .logo > p {
   color: #333;
   opacity: 0.5;
@@ -201,131 +55,45 @@ img.precice-support {
   transition: all 200ms;
 }
 @media (max-width: 992px) {
-   .logo, .logo > div, .logo > p {
-      opacity: 1;
-      filter: grayscale(0%);
-    }
+  .logo, .logo > div, .logo > p { opacity: 1; filter: grayscale(0%); }
 }
-.logo > p {
-  margin: 0;
-  text-decoration: none;
-}
+.logo > p { margin: 0; }
 .logo:hover, .logo:hover > div, .logo:hover > p {
   opacity: 1;
   filter: grayscale(0%);
   text-decoration: none;
 }
-.logo:hover > div {
-  transform: scale(1.05);
-}
-p.institution {
-  font-size: 0.8em;
-  font-weight: 400;
-  line-height: 1.2em;
-  margin-top: 0.5em;
-}
-p.country {
-  font-size: 0.8em;
-  font-weight: 700;
-  /*margin-top: -0.25em;*/
-  margin-bottom: 1em;
-}
-div.logo-holder {
-  height: 75px;
-}
-div.logo-holder > img {
-  max-height: 75px;
-}
-.no-padding {
-  padding: 0;
-}
+.logo:hover > div { transform: scale(1.05); }
+p.institution { font-size: 0.8em; font-weight: 400; line-height: 1.2em; margin-top: 0.5em; }
+p.country     { font-size: 0.8em; font-weight: 700; margin-bottom: 1em; }
 
-/* Latest News Section */
+/* ── preCICE support logo ────────────────────────────────── */
+img.precice-support { max-height: 200px; }
 
-#latest-news {
-  background-color: #e6f2ff;
-  padding: 70px 0;
-}
-
-#latest-news .section-header {
-  margin-bottom: 40px;
-  text-align: center;
-}
-
-#latest-news a.no-external-marker::after {
-  content: none !important;
-}
+/* ── News section ────────────────────────────────────────── */
+#latest-news { background-color: #e6f2ff; }
 
 .news-card {
   background: white;
   border: 1px solid #ddd;
   border-radius: 6px;
   padding: 20px;
-  margin-bottom: 20px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  height: 100%;
+  box-shadow: 0 2px 4px rgba(0,0,0,.05);
 }
-
-.news-card a.news-link {
-  display: block;
-  text-decoration: none;
-  color: #040606;
-}
-
-.news-card a.news-link:hover {
-  text-decoration: none;
-  color: #040606;
-}
-
 .news-card h4 {
-  overflow: hidden;
-  text-overflow: ellipsis;
   display: -webkit-box;
   -webkit-line-clamp: 2;
-  line-clamp: 2;
   -webkit-box-orient: vertical;
-  color: #000;
-}
-
-.news-card p:first-of-type {
   overflow: hidden;
-  text-overflow: ellipsis;
+}
+.news-card p:first-of-type {
   display: -webkit-box;
   -webkit-line-clamp: 5;
-  line-clamp: 5;
   -webkit-box-orient: vertical;
+  overflow: hidden;
 }
+#latest-news a.no-external-marker::after { content: none !important; }
 
-
-#news-container {
-  display: flex;
-  gap: 25px;
-}
-
-#news-container .col-md-4 {
-  flex: 1;
-}
-
-
-@media (max-width: 768px) {
-  #news-container {
-    flex-wrap: wrap;         
-  }
-  #news-container .col-md-4 {
-    flex: 1 1 100%;         
-  }
-}
-
-/* Responsive title line-clamp for news cards */
-@media (max-width: 992px) {
-  .news-card h4 {
-    -webkit-line-clamp: 3;
-    line-clamp: 3;
-  }
-}
-
-@media (max-width: 768px) {
-  .news-card h4 {
-    -webkit-line-clamp: 4;
-    line-clamp: 4;
-  }
-}
+/* ── Body top padding for fixed navbar ───────────────────── */
+body { padding-top: 56px; }

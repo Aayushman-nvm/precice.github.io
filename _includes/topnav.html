@@ -1,101 +1,89 @@
 <!-- Navigation -->
-<nav class="navbar navbar-inverse navbar-fixed-top" aria-label="Main">
-    <div class="container topnavlinks">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand no-icon" href="{{ site.url }}">
-            <span class="navbar-brand-icon">
-            <img class="navbar-brand-text" src="images/preCICE_text_28px.svg" alt="preCICE"></span>
-            </a>
-        </div>
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav navbar-right">
-                <!-- toggle sidebar button -->
-                {% comment %}
-                <li><a id="tg-sb-link" href="#"><i id="tg-sb-icon" class="fas fa-toggle-on"></i> Nav</a></li>
-                {% endcomment %}
-                <!-- entries without drop-downs appear here -->
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top" aria-label="Main">
+  <div class="container">
 
-                {% assign topnav = site.data[page.topnav] %}
-                {% assign topnav_dropdowns = site.data[page.topnav].topnav_dropdowns %}
+    <a class="navbar-brand" href="{{ site.url }}">
+      <img src="images/preCICE_text_28px.svg" alt="preCICE" height="22">
+    </a>
 
-                {% for entry in topnav.topnav %}
-                {% for item in entry.items %}
-                {% comment %}
-                Whenever page.url contains item.url the "active" class is applied, which does not work on sub pages
-                To solve this issue we exploit the association of sections of the website with sidebars, as scoped in _config.yml
-                {% endcomment %}
-                {% assign section_sidebar = item.section | append: '_sidebar' %}
-                {% if item.external_url %}
-                <li><a href="{{item.external_url}}" target="_blank" rel="noopener">{{item.title}}</a></li>
-                {% elsif page.url contains item.url %}
-                <li class="active"><a href="{{item.url | remove: "/"}}">{{item.title}}</a></li>
-                {% elsif page.sidebar == section_sidebar %}
-                <li class="active"><a href="{{item.url | remove: "/"}}">{{item.title}}</a></li>
-                {% else %}
-                <li><a href="{{item.url | remove: "/"}}">{{item.title}}</a></li>
-                {% endif %}
-                {% endfor %}
-                {% endfor %}
-                <!-- entries with drop-downs appear here -->
-                <!-- conditional logic to control which topnav appears for the audience defined in the configuration file.-->
-                {% for entry in topnav_dropdowns %}
-                {% for folder in entry.folders %}
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ folder.title }}<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        {% for folderitem in folder.folderitems %}
-                        {% if folderitem.external_url %}
-                        <li><a href="{{folderitem.external_url}}" target="_blank" rel="noopener">{{folderitem.title}}</a></li>
-                        {% elsif page.url contains folderitem.url %}
-                        <li class="dropdownActive"><a href="{{folderitem.url |  remove: "/"}}">{{folderitem.title}}</a></li>
-                        {% else %}
-                        <li><a href="{{folderitem.url | remove: "/"}}">{{folderitem.title}}</a></li>
-                        {% endif %}
-                        {% endfor %}
-                    </ul>
-                </li>
-                {% endfor %}
-                {% endfor %}
+    <button class="navbar-toggler" type="button"
+      data-bs-toggle="collapse" data-bs-target="#main-navbar"
+      aria-controls="main-navbar" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-                {% if site.feedback_disable == null or site.feedback_disable == false %}
-        			{% comment %}
-                    {% include feedback.html %}
-                    {% endcomment %}
-		        {% endif %}
-                <!--comment out this block if you want to hide search-->
-                <li>
-                    <!--start search-->
-                    <div id="search-demo-container">
-                        <div id="search-input"></div>
-                        <div id="search-results"></div>
-                        {% include algolia.html %}
-                    </div>
-                    <!--end search-->
-                </li>
-                <li>
-                    <a class="no-icon nav-external" href="https://precice.discourse.group" target="_blank" rel="noopener noreferrer" data-show-count="false" aria-label="Join the discourse community"><i class="fab fa-discourse"></i></a>
-                </li>
-                <li>
-                    <a class="no-icon nav-external" href="https://github.com/precice" target="_blank" rel="noopener noreferrer" data-show-count="false" aria-label="Star precice/precice on GitHub"><i class="fab fa-github"></i></a>
-                </li>
-                <li>
-                    <a class="no-icon nav-external" href="https://www.linkedin.com/company/precice" target="_blank" rel="noopener noreferrer" data-show-count="false" aria-label="Follow us on LinkedIn"><i class="fab fa-linkedin"></i></a>
-                </li>
-                <li>
-                    <!-- rel="me" required by Mastodon for verification -->
-                    <a rel="me noopener noreferrer" class="no-icon nav-external" href="https://fosstodon.org/@precice" target="_blank" data-show-count="false" aria-label="Follow us on Mastodon"><i class="fab fa-mastodon"></i></a>
-                </li>
-                <li>
-                    <a class="no-icon nav-external" href="https://www.youtube.com/c/preCICECoupling/" target="_blank" rel="noopener noreferrer" data-show-count="false" aria-label="Subscribe on Youtube"><i class="fab fa-youtube"></i></a>
-                </li>
-            </ul>
-        </div>
-        </div>
-        <!-- /.container -->
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="navbar-nav ms-auto align-items-md-center">
+
+        {% assign topnav = site.data[page.topnav] %}
+        {% assign topnav_dropdowns = site.data[page.topnav].topnav_dropdowns %}
+
+        {% for entry in topnav.topnav %}
+        {% for item in entry.items %}
+        {% assign section_sidebar = item.section | append: '_sidebar' %}
+        {% if item.external_url %}
+          <li class="nav-item">
+            <a class="nav-link" href="{{ item.external_url }}" target="_blank" rel="noopener">{{ item.title }}</a>
+          </li>
+        {% elsif page.url contains item.url or page.sidebar == section_sidebar %}
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{{ item.url | remove: '/' }}">{{ item.title }}</a>
+          </li>
+        {% else %}
+          <li class="nav-item">
+            <a class="nav-link" href="{{ item.url | remove: '/' }}">{{ item.title }}</a>
+          </li>
+        {% endif %}
+        {% endfor %}
+        {% endfor %}
+
+        {% for entry in topnav_dropdowns %}
+        {% for folder in entry.folders %}
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button"
+            data-bs-toggle="dropdown" aria-expanded="false">{{ folder.title }}</a>
+          <ul class="dropdown-menu dropdown-menu-dark">
+            {% for folderitem in folder.folderitems %}
+            {% if folderitem.external_url %}
+              <li><a class="dropdown-item" href="{{ folderitem.external_url }}" target="_blank" rel="noopener">{{ folderitem.title }}</a></li>
+            {% elsif page.url contains folderitem.url %}
+              <li><a class="dropdown-item active" href="{{ folderitem.url | remove: '/' }}">{{ folderitem.title }}</a></li>
+            {% else %}
+              <li><a class="dropdown-item" href="{{ folderitem.url | remove: '/' }}">{{ folderitem.title }}</a></li>
+            {% endif %}
+            {% endfor %}
+          </ul>
+        </li>
+        {% endfor %}
+        {% endfor %}
+
+        <!-- Search -->
+        <li class="nav-item">
+          <div id="search-demo-container">
+            <div id="search-input"></div>
+            <div id="search-results"></div>
+            {% include algolia.html %}
+          </div>
+        </li>
+
+        <!-- Social icons -->
+        <li class="nav-item">
+          <a class="nav-link px-2" href="https://precice.discourse.group" target="_blank" rel="noopener" aria-label="Discourse community"><i class="fab fa-discourse"></i></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link px-2" href="https://github.com/precice" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link px-2" href="https://www.linkedin.com/company/precice" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+        </li>
+        <li class="nav-item">
+          <a rel="me" class="nav-link px-2" href="https://fosstodon.org/@precice" target="_blank" rel="noopener" aria-label="Mastodon"><i class="fab fa-mastodon"></i></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link px-2" href="https://www.youtube.com/c/preCICECoupling/" target="_blank" rel="noopener" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+        </li>
+
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container -->
 </nav>

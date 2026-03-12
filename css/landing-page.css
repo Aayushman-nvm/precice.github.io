@@ -95,5 +95,4 @@ img.precice-support { max-height: 200px; }
 }
 #latest-news a.no-external-marker::after { content: none !important; }
 
-/* ── Body top padding for fixed navbar ───────────────────── */
-body { padding-top: 56px; }
+body { padding-top: 58px; }

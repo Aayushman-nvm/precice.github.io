@@ -1,0 +1,1271 @@
+/*
+ * ╔══════════════════════════════════════════════════════════════════════╗
+ * ║  preCICE Design System — theme-main.css                          ║
+ * ║                                                                      ║
+ * ║  Logo source colors:                                                 ║
+ * ║    Blue   #0a76bb  (the blue wave)                                   ║
+ * ║    Orange #ed762c  (the orange wave)                                 ║
+ * ║    Ink    #040606  (logotype)                                        ║
+ * ║                                                                      ║
+ * ║  Architecture:                                                       ║
+ * ║    1. Full tonal scales (like Tailwind's color system)               ║
+ * ║    2. Semantic tokens per component (like Stripe's design tokens)    ║
+ * ║    3. [data-theme="dark"] overrides semantic layer only              ║
+ * ║    4. CSS applies tokens to actual elements                          ║
+ * ╚══════════════════════════════════════════════════════════════════════╝
+ */
+
+/* ═══════════════════════════════════════════════════════════════════════
+   1. TONAL SCALES  (raw palette — never used directly in components)
+   These never change between light/dark. Think Tailwind's blue-50…900.
+═══════════════════════════════════════════════════════════════════════ */
+:root {
+
+  /* ── Blue scale (from #0a76bb) ──────────────────────────────────────
+     Derived by stepping lightness in HSL from the brand hue (205°, 89%)  */
+  --blue-50:  #e8f4fc;
+  --blue-100: #cce5f6;
+  --blue-200: #99ccee;
+  --blue-300: #66b2e5;
+  --blue-400: #3a9dd4;   /* blue-light */
+  --blue-500: #0a76bb;   /* BRAND — logo blue wave */
+  --blue-600: #085d93;
+  --blue-700: #064870;
+  --blue-800: #04304d;
+  --blue-900: #021828;
+
+  /* ── Orange scale (from #ed762c) ────────────────────────────────────
+     Hue 25°, sat 83%. Used for accents, highlights, badges, hover glows */
+  --orange-50:  #fef3e8;
+  --orange-100: #fde3c8;
+  --orange-200: #fbc591;
+  --orange-300: #f9a85a;
+  --orange-400: #f49356;   /* orange-light */
+  --orange-500: #ed762c;   /* BRAND — logo orange wave */
+  --orange-600: #c45a14;
+  --orange-700: #964310;
+  --orange-800: #672e0b;
+  --orange-900: #391807;
+
+  /* ── Neutral scale (blue-tinted, NOT flat grey — Stripe/Linear style)
+     Hue 215°, sat 12–15%. Adds depth without being colourless.         */
+  --neutral-0:   #ffffff;
+  --neutral-50:  #f5f7fa;
+  --neutral-100: #eaecf0;
+  --neutral-200: #d5d9e2;
+  --neutral-300: #b4bac8;
+  --neutral-400: #8c93a8;
+  --neutral-500: #636b80;
+  --neutral-600: #4a5168;
+  --neutral-700: #333a52;
+  --neutral-800: #1e2336;
+  --neutral-900: #0d1020;
+  --neutral-950: #070912;
+
+  /* ── Ink (logotype near-black — used for headings & navbar) ───────── */
+  --ink: #040606;
+
+  /* ── Green / success ────────────────────────────────────────────────
+     Distinct from brand, only for status messaging                      */
+  --green-400: #34d399;
+  --green-600: #059669;
+
+  /* ── Red / error ────────────────────────────────────────────────── */
+  --red-400:   #f87171;
+  --red-600:   #dc2626;
+
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   2. SEMANTIC TOKENS — LIGHT MODE  (what components actually reference)
+═══════════════════════════════════════════════════════════════════════ */
+:root,
+[data-theme="light"] {
+
+  /* ── Page surfaces ──────────────────────────────────────────────── */
+  --surface-page:       var(--neutral-0);       /* main canvas: white */
+  --surface-raised:     var(--neutral-50);      /* cards, inputs */
+  --surface-overlay:    var(--neutral-100);     /* hover states, alt sections */
+  --surface-sunken:     var(--blue-50);         /* inset wells, code bg */
+  --surface-brand:      var(--blue-500);        /* full-bleed brand sections */
+  --surface-accent:     var(--orange-500);      /* full-bleed accent sections */
+  --surface-dark:       var(--neutral-900);     /* testimonials, footer, dark sections */
+  --surface-darker:     var(--neutral-950);     /* navbar, deepest elements */
+  --surface-news:       var(--blue-50);         /* news strip */
+
+  /* ── Text ───────────────────────────────────────────────────────── */
+  --text-primary:       var(--ink);             /* headings, body */
+  --text-secondary:     var(--neutral-600);     /* supporting copy */
+  --text-tertiary:      var(--neutral-400);     /* captions, meta */
+  --text-disabled:      var(--neutral-300);
+  --text-on-dark:       var(--neutral-100);     /* text on dark surfaces */
+  --text-on-brand:      #ffffff;                /* text on blue surfaces */
+  --text-on-accent:     #ffffff;                /* text on orange surfaces */
+  --text-heading:       var(--ink);
+  --text-heading-dark:  var(--neutral-50);      /* headings inside dark sections */
+
+  /* ── Links ──────────────────────────────────────────────────────── */
+  --link-color:         var(--blue-500);
+  --link-hover:         var(--blue-700);
+  --link-visited:       #7c5cbf;               /* accessible purple — Stripe uses this */
+  --link-on-dark:       var(--blue-300);        /* links inside dark sections */
+  --link-on-dark-hover: var(--blue-200);
+
+  /* ── Navbar ─────────────────────────────────────────────────────── */
+  --nav-bg:             var(--ink);             /* exactly logotype ink — brand coherence */
+  --nav-border:         rgba(10, 118, 187, 0.3);
+  --nav-text:           var(--neutral-400);
+  --nav-text-hover:     var(--neutral-0);
+  --nav-text-active:    var(--neutral-0);
+  --nav-active-pill-bg: rgba(10, 118, 187, 0.15);
+  --nav-active-underline: var(--blue-400);
+
+  /* ── Footer ─────────────────────────────────────────────────────── */
+  --footer-bg:          var(--neutral-950);
+  --footer-border:      rgba(255,255,255,0.06);
+  --footer-text:        var(--neutral-500);
+  --footer-link:        var(--neutral-400);
+  --footer-link-hover:  var(--blue-300);
+  --footer-heading:     var(--neutral-200);
+
+  /* ── Cards ──────────────────────────────────────────────────────── */
+  --card-bg:            var(--neutral-0);
+  --card-bg-hover:      var(--blue-50);
+  --card-border:        var(--neutral-200);
+  --card-border-hover:  var(--blue-400);
+  --card-shadow:        0 1px 3px rgba(13,16,32,0.08), 0 4px 16px rgba(13,16,32,0.04);
+  --card-shadow-hover:  0 4px 12px rgba(10,118,187,0.15), 0 12px 40px rgba(10,118,187,0.10);
+  --card-header-bg:     var(--blue-500);
+  --card-header-text:   #ffffff;
+  /* Dark-surface card (testimonials, support) */
+  --card-invert-bg:     rgba(255,255,255,0.04);
+  --card-invert-border: rgba(10,118,187,0.35);
+  --card-invert-hover:  rgba(255,255,255,0.08);
+
+  /* ── Buttons — Primary (Blue CTA) ───────────────────────────────── */
+  --btn-primary-bg:          var(--blue-500);
+  --btn-primary-bg-hover:    var(--blue-600);
+  --btn-primary-bg-active:   var(--blue-700);
+  --btn-primary-text:        #ffffff;
+  --btn-primary-shadow:      0 2px 8px rgba(10,118,187,0.35);
+  --btn-primary-shadow-hover:0 4px 16px rgba(10,118,187,0.50);
+
+  /* ── Buttons — Secondary (outline) ─────────────────────────────── */
+  --btn-secondary-bg:          transparent;
+  --btn-secondary-bg-hover:    var(--blue-50);
+  --btn-secondary-text:        var(--blue-600);
+  --btn-secondary-border:      var(--blue-300);
+  --btn-secondary-border-hover:var(--blue-500);
+
+  /* ── Buttons — Ghost (subtle, on white) ─────────────────────────── */
+  --btn-ghost-bg:          transparent;
+  --btn-ghost-bg-hover:    var(--neutral-100);
+  --btn-ghost-text:        var(--neutral-700);
+  --btn-ghost-border:      var(--neutral-200);
+
+  /* ── Buttons — Accent (Orange — for secondary CTAs) ─────────────── */
+  --btn-accent-bg:          var(--orange-500);
+  --btn-accent-bg-hover:    var(--orange-600);
+  --btn-accent-text:        #ffffff;
+  --btn-accent-shadow:      0 2px 8px rgba(237,118,44,0.35);
+  --btn-accent-shadow-hover:0 4px 16px rgba(237,118,44,0.50);
+
+  /* ── Icons ──────────────────────────────────────────────────────── */
+  --icon-brand:         var(--blue-500);
+  --icon-accent:        var(--orange-500);
+  --icon-muted:         var(--neutral-400);
+  --icon-on-dark:       var(--neutral-400);
+  --icon-success:       var(--green-600);
+  --icon-error:         var(--red-600);
+
+  /* ── Borders ────────────────────────────────────────────────────── */
+  --border-subtle:      var(--neutral-100);
+  --border-default:     var(--neutral-200);
+  --border-strong:      var(--neutral-300);
+  --border-brand:       var(--blue-500);
+  --border-accent:      var(--orange-500);
+
+  /* ── Focus ──────────────────────────────────────────────────────── */
+  --focus-ring:         rgba(10,118,187,0.45);
+  --focus-ring-accent:  rgba(237,118,44,0.45);
+
+  /* ── Badges / tags ──────────────────────────────────────────────── */
+  --badge-blue-bg:      var(--blue-100);
+  --badge-blue-text:    var(--blue-700);
+  --badge-orange-bg:    var(--orange-100);
+  --badge-orange-text:  var(--orange-700);
+  --badge-neutral-bg:   var(--neutral-100);
+  --badge-neutral-text: var(--neutral-700);
+
+  /* ── Code ───────────────────────────────────────────────────────── */
+  --code-bg:            var(--blue-50);
+  --code-text:          var(--blue-800);
+  --code-border:        var(--blue-100);
+  --code-inline-bg:     var(--neutral-100);
+  --code-inline-text:   var(--blue-700);
+
+  /* ── Logowall ───────────────────────────────────────────────────── */
+  --logo-filter:        grayscale(100%);
+  --logo-opacity:       0.45;
+  --logo-filter-hover:  grayscale(0%);
+  --logo-opacity-hover: 1;
+
+  /* ── Scrollbar ──────────────────────────────────────────────────── */
+  --scrollbar-track:    var(--neutral-100);
+  --scrollbar-thumb:    var(--blue-200);
+  --scrollbar-thumb-hover: var(--blue-400);
+
+  /* ── Gradient highlights (Stripe-style hero glow) ───────────────── */
+  --gradient-brand:     linear-gradient(135deg, var(--blue-500) 0%, var(--blue-700) 100%);
+  --gradient-accent:    linear-gradient(135deg, var(--orange-400) 0%, var(--orange-600) 100%);
+  --gradient-hero-glow: radial-gradient(ellipse 80% 60% at 60% 40%, rgba(10,118,187,0.12) 0%, transparent 70%);
+  --gradient-section:   linear-gradient(180deg, var(--neutral-0) 0%, var(--blue-50) 100%);
+
+  /* ── Misc ───────────────────────────────────────────────────────── */
+  --selection-bg:       var(--blue-200);
+  --selection-text:     var(--blue-900);
+  --transition-theme:   background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   3. SEMANTIC TOKENS — DARK MODE
+   Only the semantic layer changes. Tonal scales stay identical above.
+═══════════════════════════════════════════════════════════════════════ */
+[data-theme="dark"] {
+
+  /* ── Page surfaces ──────────────────────────────────────────────── */
+  --surface-page:       var(--neutral-900);     /* #0d1020 — rich dark, not pure black */
+  --surface-raised:     var(--neutral-800);     /* #1e2336 — cards */
+  --surface-overlay:    rgba(255,255,255,0.05); /* hover on dark */
+  --surface-sunken:     var(--neutral-950);     /* inset wells */
+  --surface-brand:      var(--blue-700);        /* darker brand section */
+  --surface-accent:     var(--orange-700);
+  --surface-dark:       var(--neutral-950);
+  --surface-darker:     #020305;
+  --surface-news:       rgba(10, 118, 187, 0.12);
+
+  /* ── Text ───────────────────────────────────────────────────────── */
+  --text-primary:       var(--neutral-50);      /* #f5f7fa */
+  --text-secondary:     var(--neutral-400);     /* #8c93a8 */
+  --text-tertiary:      var(--neutral-500);
+  --text-disabled:      var(--neutral-700);
+  --text-on-dark:       var(--neutral-100);
+  --text-on-brand:      #ffffff;
+  --text-on-accent:     #ffffff;
+  --text-heading:       var(--neutral-50);
+  --text-heading-dark:  var(--neutral-50);
+
+  /* ── Links ──────────────────────────────────────────────────────── */
+  --link-color:         var(--blue-300);
+  --link-hover:         var(--blue-200);
+  --link-visited:       #c4b5fd;               /* softer purple on dark */
+  --link-on-dark:       var(--blue-300);
+  --link-on-dark-hover: var(--blue-200);
+
+  /* ── Navbar ─────────────────────────────────────────────────────── */
+  --nav-bg:             var(--neutral-950);
+  --nav-border:         rgba(10, 118, 187, 0.2);
+  --nav-text:           var(--neutral-500);
+  --nav-text-hover:     var(--neutral-100);
+  --nav-text-active:    #ffffff;
+  --nav-active-pill-bg: rgba(10, 118, 187, 0.20);
+  --nav-active-underline: var(--blue-400);
+
+  /* ── Footer ─────────────────────────────────────────────────────── */
+  --footer-bg:          var(--neutral-950);
+  --footer-border:      rgba(255,255,255,0.05);
+  --footer-text:        var(--neutral-600);
+  --footer-link:        var(--neutral-500);
+  --footer-link-hover:  var(--blue-300);
+  --footer-heading:     var(--neutral-300);
+
+  /* ── Cards ──────────────────────────────────────────────────────── */
+  --card-bg:            var(--neutral-800);
+  --card-bg-hover:      var(--neutral-700);
+  --card-border:        rgba(255,255,255,0.08);
+  --card-border-hover:  var(--blue-400);
+  --card-shadow:        0 1px 3px rgba(0,0,0,0.4), 0 4px 16px rgba(0,0,0,0.3);
+  --card-shadow-hover:  0 4px 12px rgba(10,118,187,0.3), 0 12px 40px rgba(10,118,187,0.15);
+  --card-header-bg:     var(--blue-700);
+  --card-header-text:   #ffffff;
+  --card-invert-bg:     rgba(255,255,255,0.03);
+  --card-invert-border: rgba(10,118,187,0.30);
+  --card-invert-hover:  rgba(255,255,255,0.06);
+
+  /* ── Buttons — Primary ──────────────────────────────────────────── */
+  --btn-primary-bg:          var(--blue-500);
+  --btn-primary-bg-hover:    var(--blue-400);
+  --btn-primary-bg-active:   var(--blue-600);
+  --btn-primary-text:        #ffffff;
+  --btn-primary-shadow:      0 2px 8px rgba(10,118,187,0.4);
+  --btn-primary-shadow-hover:0 4px 20px rgba(10,118,187,0.6);
+
+  /* ── Buttons — Secondary ────────────────────────────────────────── */
+  --btn-secondary-bg:          transparent;
+  --btn-secondary-bg-hover:    rgba(10,118,187,0.15);
+  --btn-secondary-text:        var(--blue-300);
+  --btn-secondary-border:      var(--blue-600);
+  --btn-secondary-border-hover:var(--blue-400);
+
+  /* ── Buttons — Ghost ────────────────────────────────────────────── */
+  --btn-ghost-bg:          transparent;
+  --btn-ghost-bg-hover:    rgba(255,255,255,0.08);
+  --btn-ghost-text:        var(--neutral-300);
+  --btn-ghost-border:      rgba(255,255,255,0.12);
+
+  /* ── Buttons — Accent ───────────────────────────────────────────── */
+  --btn-accent-bg:          var(--orange-500);
+  --btn-accent-bg-hover:    var(--orange-400);
+  --btn-accent-text:        #ffffff;
+  --btn-accent-shadow:      0 2px 8px rgba(237,118,44,0.4);
+  --btn-accent-shadow-hover:0 4px 20px rgba(237,118,44,0.6);
+
+  /* ── Icons ──────────────────────────────────────────────────────── */
+  --icon-brand:         var(--blue-400);
+  --icon-accent:        var(--orange-400);
+  --icon-muted:         var(--neutral-500);
+  --icon-on-dark:       var(--neutral-500);
+  --icon-success:       var(--green-400);
+  --icon-error:         var(--red-400);
+
+  /* ── Borders ────────────────────────────────────────────────────── */
+  --border-subtle:      rgba(255,255,255,0.04);
+  --border-default:     rgba(255,255,255,0.08);
+  --border-strong:      rgba(255,255,255,0.15);
+  --border-brand:       var(--blue-500);
+  --border-accent:      var(--orange-500);
+
+  /* ── Focus ──────────────────────────────────────────────────────── */
+  --focus-ring:         rgba(58,157,212,0.55);
+  --focus-ring-accent:  rgba(249,163,90,0.55);
+
+  /* ── Badges ─────────────────────────────────────────────────────── */
+  --badge-blue-bg:      rgba(10,118,187,0.2);
+  --badge-blue-text:    var(--blue-300);
+  --badge-orange-bg:    rgba(237,118,44,0.2);
+  --badge-orange-text:  var(--orange-300);
+  --badge-neutral-bg:   rgba(255,255,255,0.08);
+  --badge-neutral-text: var(--neutral-300);
+
+  /* ── Code ───────────────────────────────────────────────────────── */
+  --code-bg:            var(--neutral-950);
+  --code-text:          var(--blue-200);
+  --code-border:        rgba(10,118,187,0.25);
+  --code-inline-bg:     rgba(10,118,187,0.15);
+  --code-inline-text:   var(--blue-300);
+
+  /* ── Logowall ───────────────────────────────────────────────────── */
+  --logo-filter:        grayscale(100%) brightness(1.6);
+  --logo-opacity:       0.35;
+  --logo-filter-hover:  grayscale(0%) brightness(1);
+  --logo-opacity-hover: 1;
+
+  /* ── Scrollbar ──────────────────────────────────────────────────── */
+  --scrollbar-track:    var(--neutral-900);
+  --scrollbar-thumb:    var(--neutral-700);
+  --scrollbar-thumb-hover: var(--blue-600);
+
+  /* ── Gradient highlights ────────────────────────────────────────── */
+  --gradient-brand:     linear-gradient(135deg, var(--blue-600) 0%, var(--blue-800) 100%);
+  --gradient-accent:    linear-gradient(135deg, var(--orange-500) 0%, var(--orange-700) 100%);
+  --gradient-hero-glow: radial-gradient(ellipse 80% 60% at 60% 40%, rgba(10,118,187,0.18) 0%, transparent 70%);
+  --gradient-section:   linear-gradient(180deg, var(--neutral-900) 0%, var(--neutral-950) 100%);
+
+  /* ── Misc ───────────────────────────────────────────────────────── */
+  --selection-bg:       var(--blue-700);
+  --selection-text:     var(--blue-100);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   4. APPLY TO ELEMENTS
+═══════════════════════════════════════════════════════════════════════ */
+
+/* ── Global ─────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background-color: var(--surface-page);
+  color: var(--text-primary);
+  transition: var(--transition-theme);
+}
+
+::selection {
+  background-color: var(--selection-bg);
+  color: var(--selection-text);
+}
+
+/* ── Typography ─────────────────────────────────────────────────────── */
+h1, h2, h3, h4, h5, h6 { color: var(--text-heading); }
+.section-header         { color: var(--text-heading); }
+.bg-dark h1,
+.bg-dark h2,
+.bg-dark h3,
+.bg-dark .section-header { color: var(--text-heading-dark); }
+
+/* ── Links ──────────────────────────────────────────────────────────── */
+a                 { color: var(--link-color); transition: color 0.15s ease; }
+a:hover           { color: var(--link-hover); }
+a:visited         { color: var(--link-visited); }
+.bg-dark a        { color: var(--link-on-dark); }
+.bg-dark a:hover  { color: var(--link-on-dark-hover); }
+
+/* ── Navbar ─────────────────────────────────────────────────────────── */
+.navbar {
+  background-color: var(--nav-bg) !important;
+  border-bottom: 1px solid var(--nav-border);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+.navbar .nav-link {
+  color: var(--nav-text) !important;
+  border-radius: 6px;
+  padding: 6px 10px;
+  transition: color 0.15s ease, background-color 0.15s ease;
+}
+.navbar .nav-link:hover {
+  color: var(--nav-text-hover) !important;
+  background-color: var(--nav-active-pill-bg);
+}
+.navbar .nav-link.active {
+  color: var(--nav-text-active) !important;
+  background-color: var(--nav-active-pill-bg);
+  border-bottom: 2px solid var(--nav-active-underline);
+  border-radius: 6px 6px 0 0;
+}
+.navbar-brand     { color: var(--nav-text-active) !important; }
+.navbar-toggler   { border-color: var(--nav-border); }
+.navbar-toggler-icon { filter: invert(1); }
+
+/* ── Footer ─────────────────────────────────────────────────────────── */
+footer {
+  background-color: var(--footer-bg) !important;
+  color: var(--footer-text);
+  border-top: 1px solid var(--footer-border);
+}
+footer h2, footer h3, footer h4, footer strong { color: var(--footer-heading); }
+footer a          { color: var(--footer-link); text-decoration: none; transition: color 0.15s ease; }
+footer a:hover    { color: var(--footer-link-hover); }
+
+/* ── Surfaces ───────────────────────────────────────────────────────── */
+/* Override Bootstrap's bg-light / bg-dark with our tokens */
+.bg-light     { background-color: var(--surface-raised) !important; }
+.bg-dark      { background-color: var(--surface-dark)   !important; }
+#latest-news  { background-color: var(--surface-news)   !important; }
+
+/* ── Cards ──────────────────────────────────────────────────────────── */
+.card {
+  background-color: var(--card-bg);
+  border: 1px solid var(--card-border);
+  box-shadow: var(--card-shadow);
+  transition:
+    box-shadow 0.25s ease,
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+.card:hover {
+  box-shadow: var(--card-shadow-hover);
+  border-color: var(--card-border-hover);
+  transform: translateY(-2px);
+}
+.card-header {
+  background-color: var(--card-header-bg);
+  color: var(--card-header-text);
+  border-bottom: none;
+  font-weight: 600;
+}
+.card.border-primary { border-color: var(--border-brand) !important; }
+
+/* Cards on dark bg surfaces */
+.bg-dark .card {
+  background-color: var(--card-invert-bg);
+  border-color: var(--card-invert-border);
+  color: var(--text-on-dark);
+}
+.bg-dark .card:hover {
+  background-color: var(--card-invert-hover);
+}
+.bg-dark .card-header { background-color: rgba(10,118,187,0.25); }
+
+/* ── Buttons — Primary ──────────────────────────────────────────────── */
+.btn-primary {
+  background-color: var(--btn-primary-bg);
+  border-color: var(--btn-primary-bg);
+  color: var(--btn-primary-text);
+  box-shadow: var(--btn-primary-shadow);
+  font-weight: 600;
+  transition:
+    background-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.15s ease;
+}
+.btn-primary:hover {
+  background-color: var(--btn-primary-bg-hover);
+  border-color: var(--btn-primary-bg-hover);
+  color: var(--btn-primary-text);
+  box-shadow: var(--btn-primary-shadow-hover);
+  transform: translateY(-1px);
+}
+.btn-primary:active {
+  background-color: var(--btn-primary-bg-active);
+  transform: translateY(0);
+}
+
+/* ── Buttons — Outline / Secondary ─────────────────────────────────── */
+.btn-outline-primary {
+  color: var(--btn-secondary-text);
+  border-color: var(--btn-secondary-border);
+  background-color: var(--btn-secondary-bg);
+  font-weight: 500;
+  transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+}
+.btn-outline-primary:hover {
+  background-color: var(--btn-secondary-bg-hover);
+  border-color: var(--btn-secondary-border-hover);
+  color: var(--btn-secondary-text);
+  transform: translateY(-1px);
+}
+
+/* ── Buttons — Ghost ────────────────────────────────────────────────── */
+.btn-outline-secondary {
+  color: var(--btn-ghost-text);
+  border-color: var(--btn-ghost-border);
+  background-color: var(--btn-ghost-bg);
+  font-weight: 500;
+  transition: background-color 0.2s ease, transform 0.15s ease;
+}
+.btn-outline-secondary:hover {
+  background-color: var(--btn-ghost-bg-hover);
+  color: var(--text-primary);
+  border-color: var(--border-strong);
+  transform: translateY(-1px);
+}
+
+/* ── Buttons — Accent (Orange) ──────────────────────────────────────── */
+.btn-accent {
+  background-color: var(--btn-accent-bg);
+  border-color: var(--btn-accent-bg);
+  color: var(--btn-accent-text);
+  box-shadow: var(--btn-accent-shadow);
+  font-weight: 600;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
+}
+.btn-accent:hover {
+  background-color: var(--btn-accent-bg-hover);
+  border-color: var(--btn-accent-bg-hover);
+  box-shadow: var(--btn-accent-shadow-hover);
+  color: var(--btn-accent-text);
+  transform: translateY(-1px);
+}
+
+/* ── Focus rings ────────────────────────────────────────────────────── */
+.btn:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 3px;
+}
+
+/* ── Icons ──────────────────────────────────────────────────────────── */
+.icon-brand   { color: var(--icon-brand); }
+.icon-accent  { color: var(--icon-accent); }
+.icon-muted   { color: var(--icon-muted); }
+/* Chevrons in CTAs follow the button text color — no override needed.
+   Standalone icon links get brand color. */
+.nav-external i { color: var(--icon-on-dark); transition: color 0.15s ease; }
+.nav-external:hover i { color: var(--nav-text-hover); }
+
+/* ── Badges ─────────────────────────────────────────────────────────── */
+.badge-blue    { background-color: var(--badge-blue-bg);    color: var(--badge-blue-text);    padding: 3px 10px; border-radius: 999px; font-size: 0.75rem; font-weight: 600; }
+.badge-orange  { background-color: var(--badge-orange-bg);  color: var(--badge-orange-text);  padding: 3px 10px; border-radius: 999px; font-size: 0.75rem; font-weight: 600; }
+.badge-neutral { background-color: var(--badge-neutral-bg); color: var(--badge-neutral-text); padding: 3px 10px; border-radius: 999px; font-size: 0.75rem; font-weight: 600; }
+
+/* ── Borders / dividers ─────────────────────────────────────────────── */
+hr            { border-color: var(--border-default); opacity: 1; }
+
+/* ── Code ───────────────────────────────────────────────────────────── */
+pre {
+  background-color: var(--code-bg);
+  color: var(--code-text);
+  border: 1px solid var(--code-border);
+  border-radius: 8px;
+  padding: 1.25rem;
+}
+code {
+  background-color: var(--code-inline-bg);
+  color: var(--code-inline-text);
+  border-radius: 4px;
+  padding: 2px 6px;
+  font-size: 0.875em;
+}
+pre code {
+  background: none;
+  padding: 0;
+  color: inherit;
+}
+
+/* ── Logowall ───────────────────────────────────────────────────────── */
+.logo, .logo > div, .logo > p {
+  filter: var(--logo-filter);
+  opacity: var(--logo-opacity);
+  transition: filter 0.25s ease, opacity 0.25s ease, transform 0.25s ease;
+}
+.logo:hover, .logo:hover > div, .logo:hover > p {
+  filter: var(--logo-filter-hover);
+  opacity: var(--logo-opacity-hover);
+}
+.logo:hover > div { transform: scale(1.05); }
+
+/* ── Dropdown menus ─────────────────────────────────────────────────── */
+.dropdown-menu {
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-default);
+  box-shadow: var(--card-shadow-hover);
+  border-radius: 8px;
+}
+.dropdown-item {
+  color: var(--text-primary);
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+.dropdown-item:hover {
+  background-color: var(--surface-raised);
+  color: var(--link-color);
+}
+.dropdown-item.active {
+  background-color: var(--btn-primary-bg);
+  color: #ffffff;
+}
+
+/* ── Scrollbar ──────────────────────────────────────────────────────── */
+::-webkit-scrollbar              { width: 8px; }
+::-webkit-scrollbar-track        { background: var(--scrollbar-track); }
+::-webkit-scrollbar-thumb        { background: var(--scrollbar-thumb); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover  { background: var(--scrollbar-thumb-hover); }
+
+/* ── Text utilities ─────────────────────────────────────────────────── */
+.text-muted     { color: var(--text-secondary) !important; }
+.text-secondary { color: var(--text-secondary) !important; }
+.bg-dark .text-muted,
+.bg-dark .text-secondary { color: var(--neutral-500) !important; }
+
+/* ── Gradient helpers ───────────────────────────────────────────────── */
+.gradient-brand   { background: var(--gradient-brand); }
+.gradient-accent  { background: var(--gradient-accent); }
+.hero-glow::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--gradient-hero-glow);
+  pointer-events: none;
+  z-index: 0;
+}
+/* ================================================================
+   NAVBAR 
+================================================================ */
+
+
+/* ----------------------------------------------------------------
+   1. TOKENS
+   These override the --nav-* variables.
+   They redefine them for the glass style.
+---------------------------------------------------------------- */
+:root,
+[data-theme="light"] {
+  --nav-glass-bg:         rgba(255, 255, 255, 0.55);
+  --nav-glass-border:     rgba(0, 0, 0, 0.08);
+  --nav-scrolled-bg:      rgba(255, 255, 255, 0.97);
+  --nav-scrolled-border:  rgba(0, 0, 0, 0.10);
+  --nav-scrolled-shadow:  0 2px 24px rgba(0, 0, 0, 0.08);
+  --nav-text:             #3d3d4d;
+  --nav-text-hover:       #0a0a12;
+  --nav-text-active:      var(--blue-600);
+  --nav-active-pill-bg:   rgba(10, 118, 187, 0.08);
+  --nav-active-underline: var(--blue-500);
+  --nav-mobile-bg:        rgba(255, 255, 255, 0.98);
+  --nav-mobile-border:    rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="dark"] {
+  --nav-glass-bg:         rgba(13, 16, 32, 0.45);
+  --nav-glass-border:     rgba(255, 255, 255, 0.07);
+  --nav-scrolled-bg:      rgba(13, 16, 32, 0.97);
+  --nav-scrolled-border:  rgba(255, 255, 255, 0.08);
+  --nav-scrolled-shadow:  0 2px 24px rgba(0, 0, 0, 0.45);
+  --nav-text:             rgba(255, 255, 255, 0.60);
+  --nav-text-hover:       rgba(255, 255, 255, 0.96);
+  --nav-text-active:      var(--blue-300);
+  --nav-active-pill-bg:   rgba(10, 118, 187, 0.15);
+  --nav-active-underline: var(--blue-400);
+  --nav-mobile-bg:        rgba(13, 16, 32, 0.98);
+  --nav-mobile-border:    rgba(255, 255, 255, 0.07);
+}
+
+
+/* ----------------------------------------------------------------
+   2. NAV SHELL
+---------------------------------------------------------------- */
+.precice-nav {
+  background-color:        var(--nav-glass-bg) !important;
+  border-bottom:           1px solid var(--nav-glass-border);
+  height:                  58px;
+  backdrop-filter:         blur(18px) saturate(1.6);
+  -webkit-backdrop-filter: blur(18px) saturate(1.6);
+  transition:              background-color .3s ease,
+                           border-color .3s ease,
+                           box-shadow .3s ease;
+  padding: 0;
+}
+
+/* Opaque on scroll */
+.precice-nav--scrolled {
+  background-color: var(--nav-scrolled-bg) !important;
+  border-bottom:    1px solid var(--nav-scrolled-border);
+  box-shadow:       var(--nav-scrolled-shadow);
+}
+
+/* Opaque when mobile menu is open */
+body.precice-mobile-open .precice-nav {
+  background-color: var(--nav-scrolled-bg) !important;
+}
+
+/* Inner flex row */
+.precice-nav__inner {
+  max-width:   1320px;
+  width:       100%;
+  margin:      0 auto;
+  padding:     0 24px;
+  height:      100%;
+  display:     flex;
+  align-items: center;
+  gap:         4px;
+}
+
+
+/* ----------------------------------------------------------------
+   3. BRAND / LOGO
+   - No filter on the icon SVG (keeps real blue+orange colors)
+   - Dark mode: invert only the text wordmark (2nd img), not the icon
+   - All sources of the "link box" outline killed
+---------------------------------------------------------------- */
+.precice-nav__brand {
+  display:         flex;
+  align-items:     center;
+  gap:             6px;
+  flex-shrink:     0;
+  margin-right:    10px;
+  text-decoration: none;
+  outline:         none;
+  border:          none;
+  box-shadow:      none;
+  opacity:         1;
+  transition:      opacity .15s;
+}
+.precice-nav__brand:hover,
+.precice-nav__brand:focus,
+.precice-nav__brand:focus-visible,
+.precice-nav__brand:active {
+  opacity:         0.82;
+  text-decoration: none;
+  outline:         none;
+  box-shadow:      none;
+}
+.precice-nav__brand::after,
+.precice-nav__brand::before {
+  display: none  !important;
+  content: none  !important;
+}
+.precice-nav__brand img {
+  display:        block;
+  pointer-events: none;
+  user-select:    none;
+}
+[data-theme="dark"] .precice-nav__brand img:last-child {
+  filter:  brightness(0) invert(1);
+  opacity: 0.92;
+}
+
+
+/* ----------------------------------------------------------------
+   4. NAV LINKS
+---------------------------------------------------------------- */
+.precice-nav__links {
+  display:     flex;
+  align-items: center;
+  gap:         2px;
+  list-style:  none;
+  margin:      0;
+  padding:     0;
+}
+
+.precice-nav__link {
+  font-size:       13.5px;
+  font-weight:     500;
+  color:           var(--nav-text) !important;
+  padding:         6px 11px;
+  border-radius:   7px;
+  text-decoration: none;
+  white-space:     nowrap;
+  line-height:     1;
+  display:         inline-flex;
+  align-items:     center;
+  transition:      color .15s ease, background-color .15s ease;
+}
+.precice-nav__link::after,
+.precice-nav__link::before {
+  display: none  !important;
+  content: none  !important;
+}
+.precice-nav__link:hover,
+.precice-nav__link:focus-visible {
+  color:            var(--nav-text-hover) !important;
+  background-color: var(--nav-active-pill-bg);
+  text-decoration:  none;
+}
+.precice-nav__link--active {
+  color:            var(--nav-text-active) !important;
+  background-color: var(--nav-active-pill-bg);
+}
+
+/* Custom chevron caret — only for dropdown toggles */
+.precice-nav__link--dropdown.dropdown-toggle::after {
+  content:           "" !important;
+  display:           inline-block !important;
+  width:             8px;
+  height:            5px;
+  margin-left:       5px;
+  border:            none;
+  vertical-align:    middle;
+  background-image:  url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 5'%3E%3Cpath d='M0 0l4 5 4-5z' fill='%23888'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-size:   contain;
+  transition:        transform .2s ease;
+  flex-shrink:       0;
+}
+.dropdown.show .precice-nav__link--dropdown.dropdown-toggle::after {
+  transform: rotate(180deg);
+}
+
+/* Desktop dropdown panel */
+.precice-nav__dropdown {
+  background-color: var(--card-bg);
+  border:           1px solid var(--border-default);
+  border-radius:    10px;
+  box-shadow:       var(--card-shadow-hover);
+  padding:          6px;
+  min-width:        190px;
+  margin-top:       8px !important;
+  opacity:          0;
+  transform:        translateY(-6px);
+  transition:       opacity .18s ease, transform .18s ease;
+  display:          block;
+  pointer-events:   none;
+}
+.precice-nav__dropdown.show {
+  opacity:        1;
+  transform:      translateY(0);
+  pointer-events: auto;
+}
+.precice-nav__dropdown .dropdown-item {
+  font-size:     13.5px;
+  font-weight:   500;
+  color:         var(--text-primary);
+  padding:       8px 12px;
+  border-radius: 6px;
+  transition:    background-color .12s, color .12s;
+}
+.precice-nav__dropdown .dropdown-item::after,
+.precice-nav__dropdown .dropdown-item::before {
+  display: none !important;
+  content: none !important;
+}
+.precice-nav__dropdown .dropdown-item:hover {
+  background-color: var(--surface-overlay);
+  color:            var(--link-color);
+}
+.precice-nav__dropdown .dropdown-item.active {
+  background-color: var(--nav-active-pill-bg);
+  color:            var(--nav-active-underline);
+}
+
+
+/* ----------------------------------------------------------------
+   5. SEARCH — wrapper only
+   The Algolia input styles are directly below in section 6.
+---------------------------------------------------------------- */
+.precice-nav__search {
+  flex:            1;
+  display:         flex;
+  justify-content: center;
+  max-width:       300px;
+  margin:          0 16px;
+  position:        relative; /* anchor for the results dropdown */
+}
+
+
+/* ----------------------------------------------------------------
+   6. ALGOLIA SEARCH INPUT
+   The widget renders: #search-input > .ais-search-box > form >
+     input.ais-search-box--input
+   The algolia.html JS sets inline elem.style.* — we beat those
+   with !important only on the specific properties it overwrites.
+---------------------------------------------------------------- */
+
+/* Outer wrapper */
+.precice-nav__search .ais-search-box {
+  padding:    0    !important;
+  margin:     0    !important;
+  width:      100% !important;
+  height:     auto !important;
+  font-size:  1rem !important;
+  box-sizing: border-box !important;
+}
+
+/* The actual input */
+.precice-nav__search .ais-search-box--input {
+  width:            100% !important;
+  height:           34px !important;
+  padding:          0 32px 0 12px !important;
+  background-color: rgba(0, 0, 0, 0.06) !important;
+  border:           1.5px solid rgba(0, 0, 0, 0.12) !important;
+  border-radius:    8px !important;
+  font-size:        13px !important;
+  color:            var(--nav-text-hover) !important;
+  outline:          none !important;
+  box-shadow:       none !important;
+  transition:       background-color .2s, border-color .2s, box-shadow .2s;
+  appearance:       none;
+}
+[data-theme="dark"] .precice-nav__search .ais-search-box--input {
+  background-color: rgba(255, 255, 255, 0.08) !important;
+  border-color:     rgba(255, 255, 255, 0.12) !important;
+  color:            rgba(255, 255, 255, 0.9)  !important;
+}
+
+.precice-nav__search .ais-search-box--input::placeholder {
+  color: var(--text-tertiary) !important;
+}
+[data-theme="dark"] .precice-nav__search .ais-search-box--input::placeholder {
+  color: rgba(255, 255, 255, 0.35) !important;
+}
+
+.precice-nav__search .ais-search-box--input:focus {
+  background-color: rgba(10, 118, 187, 0.05) !important;
+  border-color:     var(--nav-active-underline) !important;
+  box-shadow:       0 0 0 3px rgba(10, 118, 187, 0.18) !important;
+}
+[data-theme="dark"] .precice-nav__search .ais-search-box--input:focus {
+  background-color: rgba(10, 118, 187, 0.12) !important;
+}
+
+/* Reset × button */
+.precice-nav__search .ais-search-box--reset {
+  right:     8px    !important;
+  top:       50%    !important;
+  transform: translateY(-50%) !important;
+  color:     var(--text-tertiary) !important;
+  background: none  !important;
+  border:    none   !important;
+  padding:   0      !important;
+  cursor:    pointer;
+}
+.precice-nav__search .ais-search-box--reset:hover {
+  color: var(--nav-text-hover) !important;
+}
+
+/* Hide "Powered by Algolia" inside navbar only */
+.precice-nav__search .ais-search-box--powered-by {
+  display: none !important;
+}
+
+/* Search results dropdown */
+#search-results {
+  position:         absolute;
+  top:              calc(100% + 6px);
+  left:             0;
+  right:            0;
+  z-index:          1050;
+  background-color: var(--card-bg);
+  border:           1px solid var(--border-default);
+  border-radius:    10px;
+  box-shadow:       var(--card-shadow-hover);
+  max-height:       420px;
+  overflow-y:       auto;
+  padding:          6px;
+}
+.result-item {
+  padding:       10px 12px;
+  border-radius: 7px;
+  transition:    background-color .12s;
+}
+.result-item:hover        { background-color: var(--surface-overlay); }
+.result-item h2           { font-size: 14px; font-weight: 600; margin: 0 0 3px; color: var(--text-primary); }
+.result-link              { color: var(--link-color) !important; text-decoration: none; }
+.result-link:hover        { text-decoration: underline; }
+.result-breadcrumbs       { font-size: 12px; color: var(--text-tertiary) !important; text-decoration: none; display: block; margin-bottom: 4px; }
+.result-snippet           { font-size: 12.5px; color: var(--text-secondary); line-height: 1.5; }
+.result-snippet em,
+.result-item em           { font-style: normal; background-color: var(--badge-blue-bg); color: var(--badge-blue-text); border-radius: 3px; padding: 0 3px; }
+
+
+/* ----------------------------------------------------------------
+   7. RIGHT CLUSTER — theme toggle + community/socials button
+---------------------------------------------------------------- */
+.precice-nav__right {
+  display:     flex;
+  align-items: center;
+  gap:         4px;
+  flex-shrink: 0;
+  margin-left: auto;
+}
+
+.precice-nav__icon-btn {
+  min-width:       32px;
+  height:          32px;
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+  gap:             6px;
+  background:      none;
+  border:          none;
+  border-radius:   7px;
+  color:           var(--nav-text);
+  font-size:       13px;
+  cursor:          pointer;
+  padding:         0 8px;
+  line-height:     1;
+  transition:      color .15s ease, background-color .15s ease;
+}
+.precice-nav__icon-btn::after { display: none !important; } /* kill BS caret */
+.precice-nav__icon-btn:hover,
+.precice-nav__icon-btn:focus-visible,
+.precice-nav__icon-btn.show {
+  background-color: var(--nav-active-pill-bg);
+  color:            var(--nav-text-hover);
+  outline:          none;
+}
+
+.precice-nav__socials-label {
+  font-size:   13px;
+  font-weight: 500;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+/* Socials dropdown panel */
+.precice-nav__socials-menu {
+  background-color: var(--card-bg);
+  border:           1px solid var(--border-default);
+  border-radius:    12px;
+  box-shadow:       var(--card-shadow-hover);
+  padding:          8px;
+  min-width:        215px;
+  right:            0    !important;
+  left:             auto !important;
+  margin-top:       8px  !important;
+  opacity:          0;
+  transform:        translateY(-6px);
+  transition:       opacity .18s ease, transform .18s ease;
+  display:          block;
+  pointer-events:   none;
+}
+.precice-nav__socials-menu.show {
+  opacity:        1;
+  transform:      translateY(0);
+  pointer-events: auto;
+}
+.precice-nav__social-item {
+  display:         flex      !important;
+  align-items:     center;
+  gap:             10px;
+  padding:         8px 10px !important;
+  border-radius:   8px;
+  text-decoration: none;
+  transition:      background-color .12s;
+}
+.precice-nav__social-item::after,
+.precice-nav__social-item::before { display: none !important; content: none !important; }
+.precice-nav__social-item:hover   { background-color: var(--surface-overlay); }
+
+.precice-nav__social-icon {
+  width:            30px;
+  height:           30px;
+  display:          flex;
+  align-items:      center;
+  justify-content:  center;
+  border-radius:    7px;
+  font-size:        13px;
+  background-color: var(--nav-active-pill-bg);
+  color:            var(--nav-active-underline);
+  flex-shrink:      0;
+}
+.precice-nav__social-text  { display: flex; flex-direction: column; gap: 2px; }
+.precice-nav__social-label { font-size: 13px; font-weight: 500; color: var(--text-primary); line-height: 1; }
+.precice-nav__social-sub   { font-size: 11px; color: var(--text-tertiary); line-height: 1; }
+
+
+/* ----------------------------------------------------------------
+   8. HAMBURGER — mobile only, always far right
+---------------------------------------------------------------- */
+.precice-nav__toggler {
+  display:         none; /* flex only at ≤768px */
+  width:           36px;
+  height:          36px;
+  flex-direction:  column;
+  align-items:     center;
+  justify-content: center;
+  gap:             5px;
+  background:      none;
+  border:          1.5px solid var(--nav-glass-border);
+  border-radius:   8px;
+  cursor:          pointer;
+  padding:         0;
+  flex-shrink:     0;
+  margin-left:     auto;
+  transition:      border-color .15s;
+}
+.precice-nav__toggler:hover { border-color: var(--nav-text); }
+
+.precice-nav__toggler span {
+  display:       block;
+  width:         16px;
+  height:        1.5px;
+  background:    var(--nav-text);
+  border-radius: 2px;
+  transition:    transform .25s ease, opacity .2s ease;
+}
+.precice-nav__toggler[aria-expanded="true"] span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.precice-nav__toggler[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+.precice-nav__toggler[aria-expanded="true"] span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+
+/* ----------------------------------------------------------------
+   9. MOBILE MENU PANEL
+---------------------------------------------------------------- */
+.precice-mobile-menu {
+  display:                 none; /* block at ≤768px */
+  position:                fixed;
+  top:                     58px;
+  left:                    0;
+  right:                   0;
+  background-color:        var(--nav-mobile-bg);
+  border-bottom:           1px solid var(--nav-mobile-border);
+  backdrop-filter:         blur(24px) saturate(1.8);
+  -webkit-backdrop-filter: blur(24px) saturate(1.8);
+  padding:                 14px 20px 28px;
+  overflow-y:              auto;
+  max-height:              calc(100dvh - 58px);
+  z-index:                 1039;
+  box-shadow:              0 16px 48px rgba(0, 0, 0, .15);
+  opacity:                 0;
+  transform:               translateY(-8px);
+  pointer-events:          none;
+  transition:              opacity .22s ease, transform .22s ease;
+}
+.precice-mobile-menu--open { opacity: 1; transform: translateY(0); pointer-events: auto; }
+body.precice-mobile-open   { overflow: hidden; }
+
+/* Mobile search bar */
+.precice-mobile-menu__search      { position: relative; margin-bottom: 14px; }
+.precice-mobile-menu__search-icon {
+  position: absolute; left: 11px; top: 50%; transform: translateY(-50%);
+  color: var(--text-tertiary); font-size: 12px; pointer-events: none;
+}
+.precice-mobile-menu__search-input {
+  width: 100%; height: 40px; padding: 0 12px 0 32px;
+  background-color: var(--surface-raised);
+  border: 1.5px solid var(--border-default);
+  border-radius: 8px; font-size: 14px; color: var(--text-primary);
+  outline: none; transition: border-color .2s, box-shadow .2s; appearance: none;
+}
+.precice-mobile-menu__search-input::placeholder { color: var(--text-tertiary); }
+.precice-mobile-menu__search-input:focus {
+  border-color: var(--nav-active-underline);
+  box-shadow:   0 0 0 3px rgba(10, 118, 187, .18);
+}
+
+/* Nav links */
+.precice-mobile-menu__link {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 11px 4px; font-size: 15px; font-weight: 500;
+  color: var(--nav-text) !important; text-decoration: none;
+  border-bottom: 1px solid var(--nav-mobile-border); transition: color .15s;
+}
+.precice-mobile-menu__link::after,
+.precice-mobile-menu__link::before { display: none !important; content: none !important; }
+.precice-mobile-menu__link:hover   { color: var(--nav-text-hover)  !important; }
+.precice-mobile-menu__link--active { color: var(--nav-text-active) !important; }
+.precice-mobile-menu__ext-icon     { font-size: 10px; opacity: .45; }
+
+/* Accordion */
+.precice-mobile-menu__accordion      { margin-top: 2px; }
+.precice-mobile-menu__accordion-item { background: none; border: none; border-bottom: 1px solid var(--nav-mobile-border); }
+.precice-mobile-menu__accordion-btn  {
+  background: none !important; color: var(--nav-text) !important;
+  font-size: 15px; font-weight: 500; padding: 11px 4px;
+  box-shadow: none !important; border: none;
+}
+.precice-mobile-menu__accordion-btn:not(.collapsed) { color: var(--nav-text-hover) !important; }
+[data-theme="dark"] .precice-mobile-menu__accordion-btn::after { filter: invert(.7); }
+
+.precice-mobile-menu__accordion-body { padding: 4px 0 8px 4px; display: flex; flex-direction: column; gap: 2px; }
+.precice-mobile-menu__sub-link {
+  display: block; padding: 8px 12px; font-size: 14px; font-weight: 500;
+  color: var(--text-secondary); border-radius: 7px; text-decoration: none;
+  transition: background-color .12s, color .12s;
+}
+.precice-mobile-menu__sub-link::after,
+.precice-mobile-menu__sub-link::before { display: none !important; content: none !important; }
+.precice-mobile-menu__sub-link:hover        { background-color: var(--nav-active-pill-bg); color: var(--nav-text-hover); }
+.precice-mobile-menu__sub-link--active      { background-color: var(--nav-active-pill-bg); color: var(--nav-text-active); }
+
+/* Socials section */
+.precice-mobile-menu__section-label {
+  font-size: 10px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 1px; color: var(--text-tertiary); margin: 18px 4px 8px;
+}
+.precice-mobile-menu__socials { display: flex; flex-wrap: wrap; gap: 8px; }
+.precice-mobile-menu__social-btn {
+  display: inline-flex; align-items: center; gap: 7px; padding: 8px 13px;
+  background-color: var(--surface-raised); border-radius: 8px;
+  text-decoration: none; font-size: 13px; font-weight: 500;
+  color: var(--text-secondary) !important; transition: background-color .15s, color .15s;
+}
+.precice-mobile-menu__social-btn::after,
+.precice-mobile-menu__social-btn::before { display: none !important; content: none !important; }
+.precice-mobile-menu__social-btn:hover  { background-color: var(--nav-active-pill-bg); color: var(--nav-text-hover) !important; }
+
+/* Footer row */
+.precice-mobile-menu__footer {
+  display: flex; align-items: center;
+  margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--nav-mobile-border);
+}
+.precice-mobile-menu__theme-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: none; border: 1.5px solid var(--border-default);
+  border-radius: 8px; padding: 7px 14px; font-size: 13px; font-weight: 500;
+  color: var(--text-secondary); cursor: pointer;
+  transition: color .15s, border-color .15s, background-color .15s;
+}
+.precice-mobile-menu__theme-btn:hover {
+  color: var(--text-primary); border-color: var(--border-strong);
+  background-color: var(--nav-active-pill-bg);
+}
+
+
+/* ----------------------------------------------------------------
+   10. RESPONSIVE BREAKPOINTS
+---------------------------------------------------------------- */
+@media (max-width: 900px) {
+  .precice-nav__search { max-width: 200px; margin: 0 10px; }
+}
+@media (max-width: 768px) {
+  .precice-nav__links,
+  .precice-nav__search,
+  .precice-nav__right   { display: none !important; }
+  .precice-nav__toggler { display: flex; }
+  .precice-mobile-menu  { display: block; }
+}

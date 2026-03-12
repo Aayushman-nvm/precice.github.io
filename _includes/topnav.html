@@ -1,89 +1,287 @@
-<!-- Navigation -->
-<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top" aria-label="Main">
-  <div class="container">
+<nav class="precice-nav navbar fixed-top" id="preciceNav" aria-label="Main navigation">
+  <div class="precice-nav__inner">
 
-    <a class="navbar-brand" href="{{ site.url }}">
-      <img src="images/preCICE_text_28px.svg" alt="preCICE" height="22">
+    <!-- ── Brand ──────────────────────────────────────────────────── -->
+    <a class="precice-nav__brand nav-brand" href="{{ site.url }}">
+      <img src="{{ site.baseurl }}/images/icon_filled.svg"   alt="" aria-hidden="true" height="22">
+      <img src="{{ site.baseurl }}/images/preCICE_text_28px.svg" alt="preCICE" height="22">
     </a>
 
-    <button class="navbar-toggler" type="button"
-      data-bs-toggle="collapse" data-bs-target="#main-navbar"
-      aria-controls="main-navbar" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
+    <!-- ── Desktop nav links (left cluster) ───────────────────────── -->
+    <ul class="precice-nav__links" role="list" aria-label="Site sections">
+      {% assign topnav           = site.data[page.topnav] %}
+      {% assign topnav_dropdowns = site.data[page.topnav].topnav_dropdowns %}
+
+      {% for entry in topnav.topnav %}
+        {% for item in entry.items %}
+          {% assign section_sidebar = item.section | append: '_sidebar' %}
+          <li class="precice-nav__item">
+            {% if item.external_url %}
+              <a class="precice-nav__link" href="{{ item.external_url }}"
+                 target="_blank" rel="noopener">{{ item.title }}</a>
+            {% elsif page.url contains item.url or page.sidebar == section_sidebar %}
+              <a class="precice-nav__link precice-nav__link--active" aria-current="page"
+                 href="{{ item.url | remove: '/' }}">{{ item.title }}</a>
+            {% else %}
+              <a class="precice-nav__link"
+                 href="{{ item.url | remove: '/' }}">{{ item.title }}</a>
+            {% endif %}
+          </li>
+        {% endfor %}
+      {% endfor %}
+    </ul>
+    <!-- /desktop nav links -->
+
+    <!-- ── Search (centre) ────────────────────────────────────────── -->
+    <div class="precice-nav__search" role="search">
+      <div id="search-demo-container">
+        <div id="search-input"></div>
+        <div id="search-results"></div>
+        {% include algolia.html %}
+      </div>
+    </div>
+
+    <!-- ── Right cluster ──────────────────────────────────────────── -->
+    <div class="precice-nav__right">
+
+      <!-- Theme toggle (existing toggleTheme() function in theme-toggle.js) -->
+      <button
+        id="theme-toggle"
+        class="precice-nav__icon-btn"
+        onclick="toggleTheme()"
+        aria-label="Switch to dark mode"
+        title="Toggle light / dark mode"
+      >
+        <i class="fas fa-moon"></i>
+      </button>
+
+      <!-- Socials dropdown -->
+      <div class="dropdown">
+        <button
+          class="precice-nav__icon-btn dropdown-toggle"
+          type="button"
+          id="socialsDrop"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+          aria-label="Community &amp; social links"
+          title="Find us online"
+        >
+          <i class="fas fa-earth-americas"></i>
+          <span class="precice-nav__socials-label">Socials</span>
+        </button>
+
+        <ul class="dropdown-menu dropdown-menu-end precice-nav__socials-menu"
+            aria-labelledby="socialsDrop">
+
+          <li>
+            <a class="dropdown-item precice-nav__social-item"
+               href="https://precice.discourse.group" target="_blank" rel="noopener">
+              <span class="precice-nav__social-icon"><i class="fab fa-discourse"></i></span>
+              <span class="precice-nav__social-text">
+                <span class="precice-nav__social-label">Discourse</span>
+                <span class="precice-nav__social-sub">Community forum</span>
+              </span>
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item precice-nav__social-item"
+               href="https://github.com/precice" target="_blank" rel="noopener">
+              <span class="precice-nav__social-icon"><i class="fab fa-github"></i></span>
+              <span class="precice-nav__social-text">
+                <span class="precice-nav__social-label">GitHub</span>
+                <span class="precice-nav__social-sub">Source &amp; issues</span>
+              </span>
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item precice-nav__social-item"
+               href="https://www.linkedin.com/company/precice" target="_blank" rel="noopener">
+              <span class="precice-nav__social-icon"><i class="fab fa-linkedin"></i></span>
+              <span class="precice-nav__social-text">
+                <span class="precice-nav__social-label">LinkedIn</span>
+                <span class="precice-nav__social-sub">Updates &amp; news</span>
+              </span>
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item precice-nav__social-item"
+               href="https://fosstodon.org/@precice" target="_blank" rel="noopener" rel="me">
+              <span class="precice-nav__social-icon"><i class="fab fa-mastodon"></i></span>
+              <span class="precice-nav__social-text">
+                <span class="precice-nav__social-label">Mastodon</span>
+                <span class="precice-nav__social-sub">@precice@fosstodon</span>
+              </span>
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item precice-nav__social-item"
+               href="https://www.youtube.com/c/preCICECoupling/" target="_blank" rel="noopener">
+              <span class="precice-nav__social-icon"><i class="fab fa-youtube"></i></span>
+              <span class="precice-nav__social-text">
+                <span class="precice-nav__social-label">YouTube</span>
+                <span class="precice-nav__social-sub">Videos &amp; talks</span>
+              </span>
+            </a>
+          </li>
+
+        </ul>
+      </div>
+      <!-- /socials dropdown -->
+
+    </div>
+    <!-- /right cluster -->
+
+    <!-- ── Mobile hamburger (far right) ───────────────────────────── -->
+    <button
+      class="precice-nav__toggler"
+      id="mobileToggler"
+      type="button"
+      aria-expanded="false"
+      aria-controls="mobileMenu"
+      aria-label="Open navigation menu"
+    >
+      <span></span>
+      <span></span>
+      <span></span>
     </button>
 
-    <div class="collapse navbar-collapse" id="main-navbar">
-      <ul class="navbar-nav ms-auto align-items-md-center">
+  </div><!-- /.precice-nav__inner -->
+</nav>
 
-        {% assign topnav = site.data[page.topnav] %}
-        {% assign topnav_dropdowns = site.data[page.topnav].topnav_dropdowns %}
 
-        {% for entry in topnav.topnav %}
-        {% for item in entry.items %}
+<!-- ═══════════════════════════════════════════════════════════════
+     MOBILE MENU PANEL
+════════════════════════════════════════════════════════════════ -->
+<div class="precice-mobile-menu" id="mobileMenu"
+     role="dialog" aria-modal="true" aria-label="Mobile navigation">
+
+  <!-- Mobile search -->
+  <div class="precice-mobile-menu__search" role="search">
+    <div id="search-demo-container-mobile">
+      <i class="fas fa-search precice-mobile-menu__search-icon" aria-hidden="true"></i>
+      <input class="precice-mobile-menu__search-input" type="search"
+             placeholder="Search docs…" aria-label="Search" />
+    </div>
+  </div>
+
+  <!-- Nav links -->
+  <nav aria-label="Mobile site sections">
+    {% assign topnav           = site.data[page.topnav] %}
+    {% assign topnav_dropdowns = site.data[page.topnav].topnav_dropdowns %}
+
+    {% for entry in topnav.topnav %}
+      {% for item in entry.items %}
         {% assign section_sidebar = item.section | append: '_sidebar' %}
         {% if item.external_url %}
-          <li class="nav-item">
-            <a class="nav-link" href="{{ item.external_url }}" target="_blank" rel="noopener">{{ item.title }}</a>
-          </li>
+          <a class="precice-mobile-menu__link" href="{{ item.external_url }}"
+             target="_blank" rel="noopener">
+            {{ item.title }}
+            <i class="fas fa-arrow-up-right-from-square precice-mobile-menu__ext-icon" aria-hidden="true"></i>
+          </a>
         {% elsif page.url contains item.url or page.sidebar == section_sidebar %}
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="{{ item.url | remove: '/' }}">{{ item.title }}</a>
-          </li>
+          <a class="precice-mobile-menu__link precice-mobile-menu__link--active" aria-current="page"
+             href="{{ item.url | remove: '/' }}">{{ item.title }}</a>
         {% else %}
-          <li class="nav-item">
-            <a class="nav-link" href="{{ item.url | remove: '/' }}">{{ item.title }}</a>
-          </li>
+          <a class="precice-mobile-menu__link" href="{{ item.url | remove: '/' }}">{{ item.title }}</a>
         {% endif %}
-        {% endfor %}
-        {% endfor %}
+      {% endfor %}
+    {% endfor %}
+  </nav>
 
-        {% for entry in topnav_dropdowns %}
-        {% for folder in entry.folders %}
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button"
-            data-bs-toggle="dropdown" aria-expanded="false">{{ folder.title }}</a>
-          <ul class="dropdown-menu dropdown-menu-dark">
-            {% for folderitem in folder.folderitems %}
-            {% if folderitem.external_url %}
-              <li><a class="dropdown-item" href="{{ folderitem.external_url }}" target="_blank" rel="noopener">{{ folderitem.title }}</a></li>
-            {% elsif page.url contains folderitem.url %}
-              <li><a class="dropdown-item active" href="{{ folderitem.url | remove: '/' }}">{{ folderitem.title }}</a></li>
-            {% else %}
-              <li><a class="dropdown-item" href="{{ folderitem.url | remove: '/' }}">{{ folderitem.title }}</a></li>
-            {% endif %}
-            {% endfor %}
-          </ul>
-        </li>
-        {% endfor %}
-        {% endfor %}
+  <!-- Socials -->
+  <div class="precice-mobile-menu__section-label">Find us online</div>
+  <div class="precice-mobile-menu__socials">
+    <a class="precice-mobile-menu__social-btn" href="https://precice.discourse.group" target="_blank" rel="noopener">
+      <i class="fab fa-discourse"></i> Discourse
+    </a>
+    <a class="precice-mobile-menu__social-btn" href="https://github.com/precice" target="_blank" rel="noopener">
+      <i class="fab fa-github"></i> GitHub
+    </a>
+    <a class="precice-mobile-menu__social-btn" href="https://www.linkedin.com/company/precice" target="_blank" rel="noopener">
+      <i class="fab fa-linkedin"></i> LinkedIn
+    </a>
+    <a class="precice-mobile-menu__social-btn" href="https://fosstodon.org/@precice" target="_blank" rel="noopener">
+      <i class="fab fa-mastodon"></i> Mastodon
+    </a>
+    <a class="precice-mobile-menu__social-btn" href="https://www.youtube.com/c/preCICECoupling/" target="_blank" rel="noopener">
+      <i class="fab fa-youtube"></i> YouTube
+    </a>
+  </div>
 
-        <!-- Search -->
-        <li class="nav-item">
-          <div id="search-demo-container">
-            <div id="search-input"></div>
-            <div id="search-results"></div>
-            {% include algolia.html %}
-          </div>
-        </li>
+  <!-- Footer row: theme toggle -->
+  <div class="precice-mobile-menu__footer">
+    <button class="precice-mobile-menu__theme-btn" onclick="toggleTheme()" aria-label="Toggle theme">
+      <i class="fas fa-moon" id="theme-toggle-mobile-icon"></i>
+      <span id="theme-toggle-mobile-label">Dark mode</span>
+    </button>
+  </div>
 
-        <!-- Social icons -->
-        <li class="nav-item">
-          <a class="nav-link px-2" href="https://precice.discourse.group" target="_blank" rel="noopener" aria-label="Discourse community"><i class="fab fa-discourse"></i></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link px-2" href="https://github.com/precice" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link px-2" href="https://www.linkedin.com/company/precice" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-        </li>
-        <li class="nav-item">
-          <a rel="me" class="nav-link px-2" href="https://fosstodon.org/@precice" target="_blank" rel="noopener" aria-label="Mastodon"><i class="fab fa-mastodon"></i></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link px-2" href="https://www.youtube.com/c/preCICECoupling/" target="_blank" rel="noopener" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
-        </li>
+</div>
+<!-- /.precice-mobile-menu -->
 
-      </ul>
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container -->
-</nav>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     MOBILE MENU JAVASCRIPT
+     Minimal — only what Bootstrap can't do natively:
+       1. Hamburger ↔ ✕ animation
+       2. Body scroll lock
+       3. Close on outside click / Escape / resize
+════════════════════════════════════════════════════════════════ -->
+<script>
+(function () {
+  'use strict';
+
+  var toggler    = document.getElementById('mobileToggler');
+  var panel      = document.getElementById('mobileMenu');
+  var nav        = document.getElementById('preciceNav');
+  var isOpen     = false;
+
+  // ── Scroll shadow on nav ──────────────────────────────────────────
+  window.addEventListener('scroll', function () {
+    nav.classList.toggle('precice-nav--scrolled', window.scrollY > 8);
+  }, { passive: true });
+
+  // ── Sync mobile theme icon with existing toggleTheme() ───────────
+  // The main theme-toggle.js already handles #theme-toggle (desktop btn).
+  // We just need to keep the mobile icon in sync.
+  function syncMobileThemeIcon() {
+    var theme   = document.documentElement.getAttribute('data-theme');
+    var icon    = document.getElementById('theme-toggle-mobile-icon');
+    var label   = document.getElementById('theme-toggle-mobile-label');
+    if (icon)  icon.className  = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+    if (label) label.textContent = theme === 'dark' ? 'Light mode' : 'Dark mode';
+  }
+
+  // Run once on load, then patch toggleTheme() to also sync mobile icon
+  syncMobileThemeIcon();
+  var _origToggle = window.toggleTheme;
+  window.toggleTheme = function () {
+    _origToggle();
+    syncMobileThemeIcon();
+  };
+
+  // ── Open / close panel ───────────────────────────────────────────
+  function setMenu(open) {
+    isOpen = open;
+    toggler.setAttribute('aria-expanded', open ? 'true' : 'false');
+    panel.classList.toggle('precice-mobile-menu--open', open);
+    document.body.classList.toggle('precice-mobile-open', open);
+  }
+
+  toggler.addEventListener('click', function () { setMenu(!isOpen); });
+
+  document.addEventListener('click', function (e) {
+    if (isOpen && !panel.contains(e.target) && !toggler.contains(e.target)) {
+      setMenu(false);
+    }
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && isOpen) setMenu(false);
+  });
+
+  window.addEventListener('resize', function () {
+    if (window.innerWidth > 768 && isOpen) setMenu(false);
+  });
+}());
+</script>

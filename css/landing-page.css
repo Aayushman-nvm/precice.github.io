@@ -52,6 +52,37 @@ h1.title {
   line-height: 1.6;
 }
 
+.support-list-st {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.support-list-st > li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #444;
+}
+
+.support-list-st > li i {
+  flex-shrink: 0;
+  padding-top: 3px;
+  font-size: 15px;
+}
+
+.support-list-st .support-note {
+  font-size: 14px;
+  color: #555;
+  margin-top: 4px;
+  padding-left: 0;
+}
+
 /* ── Buttons (Stripe/Tailwind Style) ─────────────────────── */
 .btn-st-primary, .btn-st-secondary {
   padding: 12px 24px;
@@ -353,89 +384,89 @@ p.country {
   gap: 0;
 }
 
-/* ── Logo Carousel (mobile only) ───────────────────────── */
-.logo-carousel-wrap {
+/* ── Logo Wall Carousel ─────────────────────────────────── */
+
+.lw-wrap {
   display: none;
   flex-direction: column;
   gap: 1.25rem;
-  overflow: hidden;
   padding: 0.5rem 0;
+  width: 100%;
+  overflow: hidden;
 }
 
-.carousel-track-outer {
-    overflow: hidden !important;
-  width: 100% !important;
-  display: block !important;
+.lw-track-outer {
+  overflow: hidden;
+  width: 100%;
   -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
   mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
 }
 
-.carousel-track {
-  display: flex !important;
-  flex-direction: row !important;
-  flex-wrap: nowrap !important;
-  width: max-content !important;
+.lw-track {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
   align-items: center;
+  gap: 12px;
+  width: max-content !important;
+  /* Removed opacity:0 — no JS dependency, tracks are always visible */
 }
-.carousel-track.ltr { animation: scrollLTR 40s linear infinite; }
-.carousel-track.rtl { animation: scrollRTL 40s linear infinite; }
-.carousel-track:hover { animation-play-state: paused; }
 
+.lw-track.ltr { animation: scrollLTR 40s linear infinite; }
+.lw-track.rtl { animation: scrollRTL 40s linear infinite; }
+.lw-track:hover { animation-play-state: paused; }
+
+/* ── The missing keyframes ── */
 @keyframes scrollLTR {
-  0%   { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
-@keyframes scrollRTL {
-  0%   { transform: translateX(-50%); }
-  100% { transform: translateX(0); }
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
 }
 
-.carousel-item {
-  flex-shrink: 0 !important;
-  flex-grow: 0 !important;
-  width: 100px !important;
-  display: flex !important;
-  flex-direction: column !important;
-  align-items: center !important;
-  width: 100px;
+@keyframes scrollRTL {
+  from { transform: translateX(-50%); }
+  to   { transform: translateX(0); }
+}
+
+/* ── Cards ── */
+.lw-card {
+  flex-shrink: 0;
+  width: 110px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   padding: 0.75rem 0.5rem 0.6rem;
-  border-radius: 8px;
+  border-radius: 6px;
   border: 1px solid #f0f0f0;
   background: #fff;
-  text-decoration: none;
-  transition: border-color 0.2s, box-shadow 0.2s;
+  text-decoration: none !important;
+  transition: background 0.2s, border-color 0.2s;
 }
-.carousel-item:hover {
-  border-color: #c8d8ea;
-  box-shadow: 0 3px 12px rgba(26, 107, 170, 0.09);
-}
+.lw-card::after { display: none !important; }
+.lw-card:hover { background: #f5f5f5; border-color: #c8d8ea; }
 
-.carousel-logo-holder {
-  height: 40px !important;
-  min-height: 40px !important;
-  width: 100% !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
+/* ── Logo holder ── */
+.lw-card .carousel-logo-holder {
+  width: 100%;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   margin-bottom: 7px;
 }
-.carousel-logo-holder img {
-  display: block !important;
-  max-height: 36px !important;
-  max-width: 80% !important;
-  width: auto !important;
-  height: auto !important;
-  object-fit: contain !important;
-  filter: grayscale(100%);
+.lw-card .carousel-logo-holder img {
+  max-height: 55px;
+  max-width: 85px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  display: block;
   opacity: 0.4;
-  transition: filter 0.25s, opacity 0.25s;
+  transition: opacity 0.25s ease;
 }
-.carousel-item:hover .carousel-logo-holder img {
-  filter: grayscale(0%);
-  opacity: 1;
-}
+.lw-card:hover .carousel-logo-holder img { opacity: 1; }
 
-.carousel-name {
+/* ── Text ── */
+.lw-card .carousel-name {
   font-size: 9.5px;
   font-weight: 500;
   color: #666;
@@ -444,7 +475,7 @@ p.country {
   margin-bottom: 2px;
   display: block;
 }
-.carousel-country {
+.lw-card .carousel-country {
   font-size: 9px;
   font-weight: 700;
   color: #333;
@@ -452,71 +483,20 @@ p.country {
   letter-spacing: 0.04em;
   display: block;
 }
-.carousel-item:hover .carousel-name { color: #1a6baa; }
-.carousel-item:hover .carousel-country { color: #0a4a7a; }
+.lw-card:hover .carousel-name    { color: #1a6baa; }
+.lw-card:hover .carousel-country { color: #0a4a7a; }
 
-/* ── Responsive switching ───────────────────────────────── */
-@media (max-width: 1100px) { .logo-grid-row { grid-template-columns: repeat(6, 1fr); } }
-@media (max-width: 820px)  { .logo-grid-row { grid-template-columns: repeat(4, 1fr); } }
-@media (max-width: 640px)  {
+/* ── Responsive: hide grid, show carousel ── */
+@media (max-width: 640px) {
   .logo-grid-row { display: none !important; }
-  .logo-carousel-wrap { display: flex; }
+  .lw-wrap { display: flex; }
 }
 
-/* Stop the st-logo-item opacity:0 rule bleeding into carousel */
-.carousel-item .carousel-name,
-.carousel-item .carousel-country {
-  opacity: 1 !important;
-  transition: color 0.2s !important;
+/* ── Respect reduced motion preference ── */
+@media (prefers-reduced-motion: reduce) {
+  .lw-track.ltr,
+  .lw-track.rtl { animation: none; }
 }
-
-/* Ensure carousel images are NOT caught by the grid's grayscale transition */
-.carousel-item img {
-  filter: grayscale(100%);
-  opacity: 0.4;
-  transition: filter 0.25s, opacity 0.25s;
-}
-.carousel-item:hover img {
-  filter: grayscale(0%);
-  opacity: 1;
-}
-
-/* Prevent any theme link styles hiding carousel items */
-.carousel-track a.carousel-item {
-  display: flex !important;
-  visibility: visible !important;
-  opacity: 1 !important;
-}
-
-/* Ensure the carousel wrapper itself is not hidden by a parent rule */
-.logo-carousel-wrap,
-.logo-carousel-wrap * {
-  visibility: visible;
-  width: 100vw;
-  position: relative;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-/* ── Community List ─────────────────────────────────────── */
-.community-list-st {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-}
-
-.community-list-st > li {
-  display: flex;
-  align-items: flex-start;
-  gap: 16px;
-  padding: 16px 20px;
-  border-bottom: 1px solid #f0f0f0;
-  transition: background 0.15s ease;
-}
-.community-list-st > li:first-child { border-top: 1px solid #f0f0f0; }
-.community-list-st > li:hover { background: #fafbfc; }
 
 /* Icon badge */
 .c-icon {
@@ -534,6 +514,33 @@ p.country {
 }
 
 /* Text column */
+/* ── Community list base ── */
+.community-list-st {
+  list-style: none;        /* kills the bullet points */
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.community-list-st > li {
+  display: flex;           /* icon + text side by side */
+  align-items: flex-start;
+  gap: 12px;
+  line-height: 1.6;
+}
+
+/* Icon column */
+.community-list-st > li > .c-icon {
+  flex-shrink: 0;          /* never squish the icon */
+  width: 20px;
+  text-align: center;
+  padding-top: 2px;        /* nudges icon into optical alignment with first text line */
+  color: #1a6baa;
+  font-size: 15px;
+}
+
 .community-list-st > li > div:last-child {
   font-size: 14px;
   line-height: 1.6;
@@ -573,41 +580,45 @@ p.country {
   background: #1a6baa;
   opacity: 0.5;
 }
-
 /* ── Uni Logo Group ─────────────────────────────────────── */
 .uni-link-group {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1.5rem;
-  flex-wrap: wrap;
+  flex-direction: column;
+  gap: 0.75rem;
 }
 
-/* Shared card shell for both uni logos and GitHub */
+.uni-logo-row {
+  display: flex;
+  flex-direction: row;
+  gap: 0.75rem;
+}
+
+.uni-logo-row .uni-link {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Shared card shell */
 .uni-link,
 .github-card-st {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 1rem 1.5rem;
+  padding: 1.1rem 1.5rem;
   border-radius: 10px;
   border: 1px solid #ebebeb;
   background: #fff;
   text-decoration: none !important;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
-  min-width: 130px;
+  transition: border-color 0.2s ease;
 }
 .uni-link:hover,
 .github-card-st:hover {
   border-color: #c8d8ea;
-  box-shadow: 0 4px 16px rgba(26, 107, 170, 0.08);
-  transform: translateY(-2px);
 }
 
 /* Logo images */
 .uni-logo-st {
-  max-height: 48px;
-  max-width: 140px;
+  max-height: 44px;
   width: auto;
   object-fit: contain;
   display: block;
@@ -620,8 +631,9 @@ p.country {
   opacity: 1;
 }
 
-/* GitHub card content */
+/* GitHub card */
 .github-card-st {
+  width: 100%;
   gap: 10px;
   color: #444;
   font-size: 14px;
@@ -631,25 +643,10 @@ p.country {
   font-size: 22px;
   color: #555;
   transition: color 0.2s ease;
-  display: block; /* override your d-block */
-  margin: 0 !important; /* override mb-2 */
+  margin: 0 !important;
 }
 .github-card-st span { white-space: nowrap; }
 .github-card-st:hover { color: #1a6baa; }
 .github-card-st:hover i { color: #1a6baa; }
 
-/* Thin vertical dividers between items */
-.uni-divider {
-  width: 1px;
-  height: 40px;
-  background: #e8e8e8;
-  flex-shrink: 0;
-}
-
-/* Responsive */
-@media (max-width: 600px) {
-  .uni-divider { display: none; }
-  .uni-link-group { gap: 0.75rem; }
-  .uni-link,
-  .github-card-st { flex: 1 1 calc(50% - 0.75rem); min-width: 0; }
-}
+.uni-divider { display: none; }

@@ -271,24 +271,21 @@ layout: landing_page
     <div class="col-md-6">
   <div class="uni-link-group">
 
+  <div class="uni-logo-row">
     <a href="https://www.cs.cit.tum.de/en/sccs/home/" class="uni-link">
       <img class="uni-logo-st" src="images/logo/logo_tum_400px.png" alt="TUM logo">
     </a>
-
-    <div class="uni-divider"></div>
-
     <a href="https://www.ipvs.uni-stuttgart.de/" class="uni-link">
       <img class="uni-logo-st" src="images/logo/logo_stuttgart_400px.png" alt="Uni Stuttgart logo">
     </a>
-
-    <div class="uni-divider"></div>
-
-    <a class="github-card-st" href="https://github.com/precice/precice">
-      <i class="fab fa-github"></i>
-      <span>preCICE on GitHub</span>
-    </a>
-
   </div>
+
+  <a class="github-card-st" href="https://github.com/precice/precice">
+    <i class="fab fa-github"></i>
+    <span>preCICE on GitHub</span>
+  </a>
+
+</div>
 </div>
   </div>
   <div class="row align-items-center">
@@ -305,7 +302,7 @@ layout: landing_page
         <h3 class="mb-3">preCICE v2: A sustainable and user-friendly coupling library</h3>
         <p class="mb-4"><em>Gerasimos Chourdakis, Kyle Davis, Benjamin Rodenberg, Miriam Schulte, Frédéric Simonis, Benjamin Uekermann et al.</em>, <strong>2022</strong>. In Open Research Europe, 2:51.</p>
         <div class="d-flex flex-wrap gap-3 align-items-center">
-          <a href="https://doi.org/10.12688/openreseurope.14445.2" class="st-link-bold">Publisher's Site &rarr;</a>
+          <a href="https://doi.org/10.12688/openreseurope.14445.2" class="st-link-bold">Publisher's Site</a>
           <a href="assets/precice-v2.bib" class="btn btn-st-secondary btn-sm">Download BibTeX &nbsp;<i class="fas fa-download"></i></a>
         </div>
       </div>
@@ -354,67 +351,209 @@ layout: landing_page
 </div>
 {% endfor %}
 
-<!-- Mobile carousel -->
-<div class="logo-carousel-wrap">
+<div class="lw-wrap">
 
-  <!-- Row 1 LTR — rows 1,2,3 from yml (24 logos) -->
-  <div class="carousel-track-outer">
-    <div class="carousel-track ltr">
-      {% for row in logowall limit:3 %}
-        {% for column in row.columns %}
-          {% for logo in column.logos %}
-          {% include carousel-item.html logo=logo %}
-          {% endfor %}
-        {% endfor %}
-      {% endfor %}
-      <!-- duplicate for seamless loop -->
-      {% for row in logowall limit:3 %}
-        {% for column in row.columns %}
-          {% for logo in column.logos %}
-          {% include carousel-item.html logo=logo %}
-          {% endfor %}
-        {% endfor %}
-      {% endfor %}
+  <!-- Row 1 LTR -->
+  <div class="lw-track-outer">
+    <div class="lw-track ltr ready">
+
+      <a href="https://www.oden.utexas.edu/" class="lw-card no-icon">
+        <div class="carousel-logo-holder"><img src="images/logo/logo-ices.png" alt="Oden Institute"></div>
+        <span class="carousel-name">Oden Institute</span>
+        <span class="carousel-country">USA</span>
+      </a>
+
+      <a href="https://www.cira.it/en" class="lw-card no-icon">
+        <div class="carousel-logo-holder"><img src="images/logo/logo-cira.jpg" alt="CIRA"></div>
+        <span class="carousel-name">CIRA</span>
+        <span class="carousel-country">Italy</span>
+      </a>
+
+      <a href="https://www.mb.uni-siegen.de/lfst/" class="lw-card no-icon">
+        <div class="carousel-logo-holder"><img src="images/logo/logo-siegen.png" alt="Fluid Mechanics"></div>
+        <span class="carousel-name">Fluid Mechanics</span>
+        <span class="carousel-country">Germany</span>
+      </a>
+
+      <a href="https://www.mib.uni-stuttgart.de/" class="lw-card no-icon">
+        <div class="carousel-logo-holder"><img src="images/logo/logo-stuttgart.png" alt="Applied Mechanics"></div>
+        <span class="carousel-name">Applied Mechanics</span>
+        <span class="carousel-country">Germany</span>
+      </a>
+
+      <a href="https://www.sc.informatik.tu-darmstadt.de/" class="lw-card no-icon">
+        <div class="carousel-logo-holder"><img src="images/logo/logo-darmstadt.png" alt="Scientific Computing"></div>
+        <span class="carousel-name">Scientific Computing</span>
+        <span class="carousel-country">Germany</span>
+      </a>
+
+      <!-- Duplicate -->
+      <a href="https://www.oden.utexas.edu/" class="lw-card no-icon">
+        <div class="carousel-logo-holder"><img src="images/logo/logo-ices.png" alt="Oden Institute"></div>
+        <span class="carousel-name">Oden Institute</span>
+        <span class="carousel-country">USA</span>
+      </a>
+
+      <a href="https://www.cira.it/en" class="lw-card no-icon">
+        <div class="carousel-logo-holder"><img src="images/logo/logo-cira.jpg" alt="CIRA"></div>
+        <span class="carousel-name">CIRA</span>
+        <span class="carousel-country">Italy</span>
+      </a>
+
+      <a href="https://www.mb.uni-siegen.de/lfst/" class="lw-card no-icon">
+        <div class="carousel-logo-holder"><img src="images/logo/logo-siegen.png" alt="Fluid Mechanics"></div>
+        <span class="carousel-name">Fluid Mechanics</span>
+        <span class="carousel-country">Germany</span>
+      </a>
+
+      <a href="https://www.mib.uni-stuttgart.de/" class="lw-card no-icon">
+        <div class="carousel-logo-holder"><img src="images/logo/logo-stuttgart.png" alt="Applied Mechanics"></div>
+        <span class="carousel-name">Applied Mechanics</span>
+        <span class="carousel-country">Germany</span>
+      </a>
+
+      <a href="https://www.sc.informatik.tu-darmstadt.de/" class="lw-card no-icon">
+        <div class="carousel-logo-holder"><img src="images/logo/logo-darmstadt.png" alt="Scientific Computing"></div>
+        <span class="carousel-name">Scientific Computing</span>
+        <span class="carousel-country">Germany</span>
+      </a>
+
     </div>
   </div>
 
-  <!-- Row 2 RTL — rows 4,5,6 from yml (24 logos) -->
-  <div class="carousel-track-outer">
-    <div class="carousel-track rtl">
-      {% for row in logowall limit:3 offset:3 %}
-        {% for column in row.columns %}
-          {% for logo in column.logos %}
-          {% include carousel-item.html logo=logo %}
-          {% endfor %}
-        {% endfor %}
-      {% endfor %}
-      {% for row in logowall limit:3 offset:3 %}
-        {% for column in row.columns %}
-          {% for logo in column.logos %}
-          {% include carousel-item.html logo=logo %}
-          {% endfor %}
-        {% endfor %}
-      {% endfor %}
+  <!-- Row 2 RTL -->
+  <div class="lw-track-outer">
+    <div class="lw-track rtl ready">
+
+      <a href="https://www.ufs.ac.za/health/departments-and-divisions/cardiothoracic-surgery-home" class="lw-card no-icon">
+        <div class="carousel-logo-holder"><img src="images/logo/logo-ufs.png" alt="University of the Free State"></div>
+        <span class="carousel-name">University of the Free State</span>
+        <span class="carousel-country">South Africa</span>
+      </a>
+
+      <a href="https://www.a-star.edu.sg/" class="lw-card no-icon">
+        <div class="carousel-logo-holder"><img src="images/logo/logo-astar.png" alt="A*STAR"></div>
+        <span class="carousel-name">A*STAR</span>
+        <span class="carousel-country">Singapore</span>
+      </a>
+
+      <a href="https://www.nrg.eu/" class="lw-card no-icon">
+        <div class="carousel-logo-holder"><img src="images/logo/logo-nrg.png" alt="NRG"></div>
+        <span class="carousel-name">NRG</span>
+        <span class="carousel-country">Netherlands</span>
+      </a>
+
+      <a href="https://www.lrg.tum.de/en/ht/home/" class="lw-card no-icon">
+        <div class="carousel-logo-holder"><img src="images/logo/logo-tum.png" alt="Helicopter Technology"></div>
+        <span class="carousel-name">Helicopter Technology</span>
+        <span class="carousel-country">Germany</span>
+      </a>
+
+      <a href="https://www.fnb.tu-darmstadt.de/" class="lw-card no-icon">
+        <div class="carousel-logo-holder"><img src="images/logo/logo-darmstadt.png" alt="FNB"></div>
+        <span class="carousel-name">FNB</span>
+        <span class="carousel-country">Germany</span>
+      </a>
+
+      <!-- Duplicate -->
+      <a href="https://www.ufs.ac.za/health/departments-and-divisions/cardiothoracic-surgery-home" class="lw-card no-icon">
+        <div class="carousel-logo-holder"><img src="images/logo/logo-ufs.png" alt="University of the Free State"></div>
+        <span class="carousel-name">University of the Free State</span>
+        <span class="carousel-country">South Africa</span>
+      </a>
+
+      <a href="https://www.a-star.edu.sg/" class="lw-card no-icon">
+        <div class="carousel-logo-holder"><img src="images/logo/logo-astar.png" alt="A*STAR"></div>
+        <span class="carousel-name">A*STAR</span>
+        <span class="carousel-country">Singapore</span>
+      </a>
+
+      <a href="https://www.nrg.eu/" class="lw-card no-icon">
+        <div class="carousel-logo-holder"><img src="images/logo/logo-nrg.png" alt="NRG"></div>
+        <span class="carousel-name">NRG</span>
+        <span class="carousel-country">Netherlands</span>
+      </a>
+
+      <a href="https://www.lrg.tum.de/en/ht/home/" class="lw-card no-icon">
+        <div class="carousel-logo-holder"><img src="images/logo/logo-tum.png" alt="Helicopter Technology"></div>
+        <span class="carousel-name">Helicopter Technology</span>
+        <span class="carousel-country">Germany</span>
+      </a>
+
+      <a href="https://www.fnb.tu-darmstadt.de/" class="lw-card no-icon">
+        <div class="carousel-logo-holder"><img src="images/logo/logo-darmstadt.png" alt="FNB"></div>
+        <span class="carousel-name">FNB</span>
+        <span class="carousel-country">Germany</span>
+      </a>
+
     </div>
   </div>
 
-  <!-- Row 3 LTR — rows 7,8,9 from yml (24 logos) -->
-  <div class="carousel-track-outer">
-    <div class="carousel-track ltr">
-      {% for row in logowall limit:3 offset:6 %}
-        {% for column in row.columns %}
-          {% for logo in column.logos %}
-          {% include carousel-item.html logo=logo %}
-          {% endfor %}
-        {% endfor %}
-      {% endfor %}
-      {% for row in logowall limit:3 offset:6 %}
-        {% for column in row.columns %}
-          {% for logo in column.logos %}
-          {% include carousel-item.html logo=logo %}
-          {% endfor %}
-        {% endfor %}
-      {% endfor %}
+  <!-- Row 3 LTR -->
+  <div class="lw-track-outer">
+    <div class="lw-track ltr ready">
+
+      <a href="https://www.iws.uni-stuttgart.de" class="lw-card no-icon">
+        <div class="carousel-logo-holder"><img src="images/logo/logo-stuttgart.png" alt="IWS"></div>
+        <span class="carousel-name">IWS</span>
+        <span class="carousel-country">Germany</span>
+      </a>
+
+      <a href="https://www.tudelft.nl/en/ae/organisation/departments/flow-physics-and-technology/wind-energy" class="lw-card no-icon">
+        <div class="carousel-logo-holder"><img src="images/logo/logo-delft.png" alt="Wind Energy"></div>
+        <span class="carousel-name">Wind Energy</span>
+        <span class="carousel-country">Netherlands</span>
+      </a>
+
+      <a href="https://www.fast.kit.edu/" class="lw-card no-icon">
+        <div class="carousel-logo-holder"><img src="images/logo/logo-kit.png" alt="FAST"></div>
+        <span class="carousel-name">FAST</span>
+        <span class="carousel-country">Germany</span>
+      </a>
+
+      <a href="https://www.mech.kuleuven.be/en/mod" class="lw-card no-icon">
+        <div class="carousel-logo-holder"><img src="images/logo/logo-leuven.png" alt="Noise & Vibration"></div>
+        <span class="carousel-name">Noise & Vibration</span>
+        <span class="carousel-country">Belgium</span>
+      </a>
+
+      <a href="https://www.mace.manchester.ac.uk/" class="lw-card no-icon">
+        <div class="carousel-logo-holder"><img src="images/logo/logo-manchester.png" alt="Aerodynamics"></div>
+        <span class="carousel-name">Aerodynamics</span>
+        <span class="carousel-country">United Kingdom</span>
+      </a>
+
+      <!-- Duplicate -->
+      <a href="https://www.iws.uni-stuttgart.de" class="lw-card no-icon">
+        <div class="carousel-logo-holder"><img src="images/logo/logo-stuttgart.png" alt="IWS"></div>
+        <span class="carousel-name">IWS</span>
+        <span class="carousel-country">Germany</span>
+      </a>
+
+      <a href="https://www.tudelft.nl/en/ae/organisation/departments/flow-physics-and-technology/wind-energy" class="lw-card no-icon">
+        <div class="carousel-logo-holder"><img src="images/logo/logo-delft.png" alt="Wind Energy"></div>
+        <span class="carousel-name">Wind Energy</span>
+        <span class="carousel-country">Netherlands</span>
+      </a>
+
+      <a href="https://www.fast.kit.edu/" class="lw-card no-icon">
+        <div class="carousel-logo-holder"><img src="images/logo/logo-kit.png" alt="FAST"></div>
+        <span class="carousel-name">FAST</span>
+        <span class="carousel-country">Germany</span>
+      </a>
+
+      <a href="https://www.mech.kuleuven.be/en/mod" class="lw-card no-icon">
+        <div class="carousel-logo-holder"><img src="images/logo/logo-leuven.png" alt="Noise & Vibration"></div>
+        <span class="carousel-name">Noise & Vibration</span>
+        <span class="carousel-country">Belgium</span>
+      </a>
+
+      <a href="https://www.mace.manchester.ac.uk/" class="lw-card no-icon">
+        <div class="carousel-logo-holder"><img src="images/logo/logo-manchester.png" alt="Aerodynamics"></div>
+        <span class="carousel-name">Aerodynamics</span>
+        <span class="carousel-country">United Kingdom</span>
+      </a>
+
     </div>
   </div>
 
@@ -436,27 +575,40 @@ layout: landing_page
     </div>
   </div>
   <div class="row g-5">
-    <div class="col-md-7">
-      <ul class="community-list-st">
-        <li><div class="c-icon"><i class="fas fa-comments"></i></div> <div><strong>Ask for help and help others</strong> in the <a href="https://precice.discourse.group/">preCICE forum</a> and register to receive news.</li>
-        <li><div class="c-icon"><i class="fas fa-edit"></i></div> <div>Directly <strong>edit the documentation</strong>. We review and help - nothing can go wrong.</div></li>
-        <li><div class="c-icon"><i class="fas fa-exclamation-circle"></i></div> <div>Report issues on <a href="https://github.com/precice/">GitHub</a> and help us solve them for everyone.</div></li>
-        <li><div class="c-icon"><i class="fas fa-code-branch"></i></div> <div><a href="community-contribute-to-precice.html">Contribute</a> code and simulation examples - we help you with guidelines, tools, and reviews.</div></li>
-        <li><div class="c-icon"><i class="fas fa-users"></i></div> <div><strong>Meet the community</strong> in one of the <a href="community.html">preCICE workshops and conference sessions</a>.</div>
-      <li>
-        <div class="c-icon"><i class="fas fa-envelope"></i></div>
-        <div>
-              Subscribe to our <b>quarterly newsletter</b> including:
-              <ul>
-                <li>New publications</li>
-                <li>New features</li>
-                <li>New adapters, bindings, tools, tutorials, and more</li>
-                <li>Upcoming events and news from the community</li>
-              </ul>
-            </div>
-            </li>
-      </li>
+    <div class="col-md-7"><ul class="community-list-st">
+  <li>
+    <div class="c-icon"><i class="fas fa-comments"></i></div>
+    <div><strong>Ask for help and help others</strong> in the <a href="https://precice.discourse.group/">preCICE forum</a> and register to receive news.</div>
+  </li>
+  <li>
+    <div class="c-icon"><i class="fas fa-edit"></i></div>
+    <div>Directly <strong>edit the documentation</strong>. We review and help - nothing can go wrong.</div>
+  </li>
+  <li>
+    <div class="c-icon"><i class="fas fa-exclamation-circle"></i></div>
+    <div>Report issues on <a href="https://github.com/precice/">GitHub</a> and help us solve them for everyone.</div>
+  </li>
+  <li>
+    <div class="c-icon"><i class="fas fa-code-branch"></i></div>
+    <div><a href="community-contribute-to-precice.html">Contribute</a> code and simulation examples - we help you with guidelines, tools, and reviews.</div>
+  </li>
+  <li>
+    <div class="c-icon"><i class="fas fa-users"></i></div>
+    <div><strong>Meet the community</strong> in one of the <a href="community.html">preCICE workshops and conference sessions</a>.</div>
+  </li>
+  <li>
+    <div class="c-icon"><i class="fas fa-envelope"></i></div>
+    <div>
+      Subscribe to our <b>quarterly newsletter</b> including:
+      <ul>
+        <li>New publications</li>
+        <li>New features</li>
+        <li>New adapters, bindings, tools, tutorials, and more</li>
+        <li>Upcoming events and news from the community</li>
       </ul>
+    </div>
+  </li>
+</ul>
     </div>
     <div class="col-md-5">
       <div class="st-card newsletter-card">
@@ -475,10 +627,10 @@ layout: landing_page
         <h2 class="section-header-st">You support preCICE – preCICE supports you</h2>
         <p class="lead-st">As the developers of preCICE, we enjoy supporting our academic and industry users, but due to the growing demand, we are not able to service all support requests any more. We are introducing <strong>preCICE support</strong> as a way to contribute to sustainable open-source software development and to ensure preCICE is developed and maintained in the future. Supporting preCICE comes with several benefits:</p>
         <ul class="support-list-st">
-          <li><i class="fas fa-check-circle me-2 text-primary"></i> <strong>Increased success rate</strong> for your research proposal (include preCICE as a partner, software provider, or sub-contractor)</li>
-          <li><i class="fas fa-check-circle me-2 text-primary"></i> <strong>Priority support</strong> and direct access to developers</li>
-          <li><i class="fas fa-check-circle me-2 text-primary"></i> Private, on-site support and bespoke training</li>
-          <p>We offer different levels of support for industry and academia.</p>
+          <li><i class="fas fa-check-circle me-2 text-primary"></i> <div><strong>Increased success rate</strong> for your research proposal (include preCICE as a partner, software provider, or sub-contractor)</div></li>
+          <li><i class="fas fa-check-circle me-2 text-primary"></i> <div><strong>Priority support</strong> and direct access to developers</div></li>
+          <li><i class="fas fa-check-circle me-2 text-primary"></i> <div>Private, on-site support and bespoke training</div></li>
+          <li class="support-note">We offer different levels of support for industry and academia.</p>
         </ul>
         <a href="community-support-precice.html" class="btn btn-st-primary btn-lg mt-4">Support preCICE — see options</a>
       </div>
@@ -544,3 +696,17 @@ layout: landing_page
     </div>
   </div>
 </div>
+<script>
+window.addEventListener('load', function() {
+  document.querySelectorAll('.carousel-track').forEach(function(track) {
+    var items = track.querySelectorAll('.carousel-item');
+    var totalWidth = items.length * (110 + 12); // 110px width + 12px gap
+    track.style.width = totalWidth + 'px';
+
+    var duration = (totalWidth / 2) / 20; // cinematic pace
+    track.style.animationDuration = duration + 's';
+    track.style.animationPlayState = 'running';
+    track.classList.add('ready');
+  });
+});
+</script>

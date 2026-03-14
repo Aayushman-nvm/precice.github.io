@@ -268,14 +268,28 @@ layout: landing_page
         <p class="text-secondary-st">You can <strong>cite the preCICE library</strong> using the following paper. Please also consider citing the adapters you use, as well as the <a href="installation-distribution.html">preCICE Distribution</a> for <strong>reproducibility</strong>. You can find the respective references in our <a href="fundamentals-literature-guide.html">literature guide</a>.</p>
       </div>
     </div>
-    <div class="col-md-6 d-flex align-items-center justify-content-around flex-wrap gap-4">
-      <a href="https://www.cs.cit.tum.de/en/sccs/home/" class="uni-link"><img class="img-fluid uni-logo-st" src="images/logo/logo_tum_400px.png" alt="TUM logo"></a>
-      <a href="https://www.ipvs.uni-stuttgart.de/" class="uni-link"><img class="img-fluid uni-logo-st" src="images/logo/logo_stuttgart_400px.png" alt="Uni Stuttgart logo"></a>
-      <a class="github-card-st" href="https://github.com/precice/precice">
-        <i class="fab fa-github fa-3x d-block mb-2"></i>
-        <span>preCICE on GitHub</span>
-      </a>
-    </div>
+    <div class="col-md-6">
+  <div class="uni-link-group">
+
+    <a href="https://www.cs.cit.tum.de/en/sccs/home/" class="uni-link">
+      <img class="uni-logo-st" src="images/logo/logo_tum_400px.png" alt="TUM logo">
+    </a>
+
+    <div class="uni-divider"></div>
+
+    <a href="https://www.ipvs.uni-stuttgart.de/" class="uni-link">
+      <img class="uni-logo-st" src="images/logo/logo_stuttgart_400px.png" alt="Uni Stuttgart logo">
+    </a>
+
+    <div class="uni-divider"></div>
+
+    <a class="github-card-st" href="https://github.com/precice/precice">
+      <i class="fab fa-github"></i>
+      <span>preCICE on GitHub</span>
+    </a>
+
+  </div>
+</div>
   </div>
   <div class="row align-items-center">
     <div class="col-md-3 d-none d-md-block text-center">
@@ -313,28 +327,98 @@ layout: landing_page
       </div>
     </div>
 
-    {% assign logowall = site.data.logowall %}
-    <div class="logowall-container">
-      {% for row in logowall %}
-      <div class="row g-4 mb-4">
-        {% for column in row.columns %}
-        <div class="col-md-6">
-          <div class="row g-3">
-          {% for logo in column.logos %}
-            <div class="col-3">
-              <a href="{{ logo.link }}" class="st-logo-item no-icon" title="{{ logo.name }}, {{ logo.country }}">
-                <div class="logo-box">
-                  <img class="img-fluid" src="images/logo/{{ logo.logo }}" alt="{{ logo.name }}">
-                </div>
-              </a>
-            </div>
-          {% endfor %}
-          </div>
-        </div>
-        {% endfor %}
+{% assign logowall = site.data.logowall %}
+{% assign all_logos = "" | split: "" %}
+{% for row in logowall %}
+  {% for column in row.columns %}
+    {% for logo in column.logos %}
+      {% assign all_logos = all_logos | push: logo %}
+    {% endfor %}
+  {% endfor %}
+{% endfor %}
+
+<!-- Desktop grid -->
+{% for row in logowall %}
+<div class="logo-grid-row">
+  {% for column in row.columns %}
+    {% for logo in column.logos %}
+    <a href="{{ logo.link }}" class="st-logo-item no-icon">
+      <div class="logo-holder">
+        <img src="images/logo/{{ logo.logo }}" alt="{{ logo.name }}, {{ logo.country }}">
       </div>
+      <p class="institution">{{ logo.name }}</p>
+      <p class="country">{{ logo.country }}</p>
+    </a>
+    {% endfor %}
+  {% endfor %}
+</div>
+{% endfor %}
+
+<!-- Mobile carousel -->
+<div class="logo-carousel-wrap">
+
+  <!-- Row 1 LTR — rows 1,2,3 from yml (24 logos) -->
+  <div class="carousel-track-outer">
+    <div class="carousel-track ltr">
+      {% for row in logowall limit:3 %}
+        {% for column in row.columns %}
+          {% for logo in column.logos %}
+          {% include carousel-item.html logo=logo %}
+          {% endfor %}
+        {% endfor %}
+      {% endfor %}
+      <!-- duplicate for seamless loop -->
+      {% for row in logowall limit:3 %}
+        {% for column in row.columns %}
+          {% for logo in column.logos %}
+          {% include carousel-item.html logo=logo %}
+          {% endfor %}
+        {% endfor %}
       {% endfor %}
     </div>
+  </div>
+
+  <!-- Row 2 RTL — rows 4,5,6 from yml (24 logos) -->
+  <div class="carousel-track-outer">
+    <div class="carousel-track rtl">
+      {% for row in logowall limit:3 offset:3 %}
+        {% for column in row.columns %}
+          {% for logo in column.logos %}
+          {% include carousel-item.html logo=logo %}
+          {% endfor %}
+        {% endfor %}
+      {% endfor %}
+      {% for row in logowall limit:3 offset:3 %}
+        {% for column in row.columns %}
+          {% for logo in column.logos %}
+          {% include carousel-item.html logo=logo %}
+          {% endfor %}
+        {% endfor %}
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- Row 3 LTR — rows 7,8,9 from yml (24 logos) -->
+  <div class="carousel-track-outer">
+    <div class="carousel-track ltr">
+      {% for row in logowall limit:3 offset:6 %}
+        {% for column in row.columns %}
+          {% for logo in column.logos %}
+          {% include carousel-item.html logo=logo %}
+          {% endfor %}
+        {% endfor %}
+      {% endfor %}
+      {% for row in logowall limit:3 offset:6 %}
+        {% for column in row.columns %}
+          {% for logo in column.logos %}
+          {% include carousel-item.html logo=logo %}
+          {% endfor %}
+        {% endfor %}
+      {% endfor %}
+    </div>
+  </div>
+
+</div>
 
     <div class="row mt-5">
       <div class="col-12 text-center">
@@ -354,11 +438,24 @@ layout: landing_page
   <div class="row g-5">
     <div class="col-md-7">
       <ul class="community-list-st">
-        <li><div class="c-icon"><i class="fas fa-comments"></i></div> <div><strong>Ask for help</strong> in the <a href="https://precice.discourse.group/">preCICE forum</a>. There you find our vivid community and the preCICE developers.</div></li>
-        <li><div class="c-icon"><i class="fas fa-edit"></i></div> <div>Directly <strong>edit the documentation</strong>. If you find anything that is not clear, please fix it or open an issue on GitHub. We will review your changes and help you.</div></li>
-        <li><div class="c-icon"><i class="fas fa-exclamation-circle"></i></div> <div>Report issues on <a href="https://github.com/precice/">GitHub</a> and help us solve them. We appreciate every bug report and feature request.</div></li>
-        <li><div class="c-icon"><i class="fas fa-code-branch"></i></div> <div><a href="community-contribute-to-precice.html">Contribute</a> code, documentation, and simulation examples. We are happy to help you get started with your first contribution.</div></li>
-        <li><div class="c-icon"><i class="fas fa-users"></i></div> <div><strong>Meet the community</strong> in workshops and conference sessions. We regularly organize workshops and sessions at international conferences.</div></li>
+        <li><div class="c-icon"><i class="fas fa-comments"></i></div> <div><strong>Ask for help and help others</strong> in the <a href="https://precice.discourse.group/">preCICE forum</a> and register to receive news.</li>
+        <li><div class="c-icon"><i class="fas fa-edit"></i></div> <div>Directly <strong>edit the documentation</strong>. We review and help - nothing can go wrong.</div></li>
+        <li><div class="c-icon"><i class="fas fa-exclamation-circle"></i></div> <div>Report issues on <a href="https://github.com/precice/">GitHub</a> and help us solve them for everyone.</div></li>
+        <li><div class="c-icon"><i class="fas fa-code-branch"></i></div> <div><a href="community-contribute-to-precice.html">Contribute</a> code and simulation examples - we help you with guidelines, tools, and reviews.</div></li>
+        <li><div class="c-icon"><i class="fas fa-users"></i></div> <div><strong>Meet the community</strong> in one of the <a href="community.html">preCICE workshops and conference sessions</a>.</div>
+      <li>
+        <div class="c-icon"><i class="fas fa-envelope"></i></div>
+        <div>
+              Subscribe to our <b>quarterly newsletter</b> including:
+              <ul>
+                <li>New publications</li>
+                <li>New features</li>
+                <li>New adapters, bindings, tools, tutorials, and more</li>
+                <li>Upcoming events and news from the community</li>
+              </ul>
+            </div>
+            </li>
+      </li>
       </ul>
     </div>
     <div class="col-md-5">
@@ -376,11 +473,12 @@ layout: landing_page
     <div class="row g-5 align-items-center">
       <div class="col-md-7">
         <h2 class="section-header-st">You support preCICE – preCICE supports you</h2>
-        <p class="lead-st">We enjoy supporting our academic and industry users. To ensure preCICE is maintained in the future, we offer a dedicated support program.</p>
+        <p class="lead-st">As the developers of preCICE, we enjoy supporting our academic and industry users, but due to the growing demand, we are not able to service all support requests any more. We are introducing <strong>preCICE support</strong> as a way to contribute to sustainable open-source software development and to ensure preCICE is developed and maintained in the future. Supporting preCICE comes with several benefits:</p>
         <ul class="support-list-st">
-          <li><i class="fas fa-check-circle me-2 text-primary"></i> <strong>Increased success rate</strong> for your research proposal</li>
+          <li><i class="fas fa-check-circle me-2 text-primary"></i> <strong>Increased success rate</strong> for your research proposal (include preCICE as a partner, software provider, or sub-contractor)</li>
           <li><i class="fas fa-check-circle me-2 text-primary"></i> <strong>Priority support</strong> and direct access to developers</li>
           <li><i class="fas fa-check-circle me-2 text-primary"></i> Private, on-site support and bespoke training</li>
+          <p>We offer different levels of support for industry and academia.</p>
         </ul>
         <a href="community-support-precice.html" class="btn btn-st-primary btn-lg mt-4">Support preCICE — see options</a>
       </div>

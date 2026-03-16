@@ -1122,7 +1122,7 @@ body.precice-mobile-open .precice-nav {
 .precice-nav__search .ais-search-box--input:focus {
   background-color: rgba(10, 118, 187, 0.05) !important;
   border-color:     var(--nav-active-underline) !important;
-  box-shadow:       0 0 0 3px rgba(10, 118, 187, 0.18) !important;
+  box-shadow:       0 0 0 3px rgba(237, 118, 44, 0.20) !important;
 }
 [data-theme="dark"] .precice-nav__search .ais-search-box--input:focus {
   background-color: rgba(10, 118, 187, 0.12) !important;
@@ -1355,7 +1355,10 @@ body.precice-mobile-open   { overflow: hidden; }
 .precice-mobile-menu__search-input::placeholder { color: var(--text-tertiary); }
 .precice-mobile-menu__search-input:focus {
   border-color: var(--nav-active-underline);
-  box-shadow:   0 0 0 3px rgba(10, 118, 187, .18);
+  box-shadow: 0 0 0 3px rgba(237, 118, 44, 0.20);
+}
+[data-theme="dark"] .precice-mobile-menu__search-input:focus {
+  box-shadow: 0 0 0 3px rgba(10, 118, 187, 0.25);
 }
 
 /* Nav links */

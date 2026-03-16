@@ -182,15 +182,35 @@ h1.title {
 
 /* ── Secondary — DARK MODE: blue-tinted outline ── */
 [data-theme="dark"] .btn-st-secondary {
-  color:        var(--blue-300) !important;
-  border-color: var(--blue-600);
+  color:        var(--neutral-100) !important;   
+  border-color: var(--neutral-400);              
   background:   transparent;
 }
 
 [data-theme="dark"] .btn-st-secondary:hover {
-  background:   rgba(10, 118, 187, 0.15);
-  border-color: var(--blue-400);
-  color:        var(--blue-200) !important;
+  background:   rgba(255, 255, 255, 0.08);
+  border-color: var(--neutral-200);
+  color:        var(--neutral-0) !important;
+}
+
+:root .btn-st-primary,
+[data-theme="light"] .btn-st-primary {
+  background:   var(--orange-500);
+  border-color: transparent;
+  color:        var(--ink) !important;   /* black text on orange */
+  box-shadow:   0 2px 8px rgba(237, 118, 44, 0.30);
+}
+
+:root .btn-st-primary:hover,
+[data-theme="light"] .btn-st-primary:hover {
+  background:  var(--orange-600);
+  color:       var(--ink) !important;
+  box-shadow:  0 4px 16px rgba(237, 118, 44, 0.45);
+}
+
+:root .btn-st-primary:active,
+[data-theme="light"] .btn-st-primary:active {
+  background: var(--orange-700);
 }
 
 /* ── Small variant ── */
@@ -258,6 +278,11 @@ h1.title {
   border-top:       1px solid var(--border-default);
   border-bottom:    1px solid var(--border-default);
   transition:       background-color 0.25s ease;
+}
+
+[data-theme="light"] .surface-sunken-st {
+  background-color: var(--orange-50);
+  border-color:     var(--orange-100);
 }
 
 /* ── Testimonials / dark sections ──
@@ -349,6 +374,10 @@ h1.title {
   font-weight: var(--font-bold);
 }
 
+[data-theme="dark"] .usp-st-li::before {
+  color: var(--blue-400);
+}
+
 /* ── Card link ── */
 .st-link {
   font-weight:     var(--font-semibold);
@@ -390,19 +419,13 @@ h1.title {
 /* ── Featured card (reference paper — used in HTML, was missing) ── */
 .st-card-featured {
   background:    var(--card-bg);
-  border:        1px solid var(--card-border);
   border-left:   4px solid var(--orange-500);
   border-radius: 12px;
   padding:       28px 32px;
-  transition:    border-color 0.25s ease, box-shadow 0.25s ease;
 }
 
 .st-card-featured:hover {
   box-shadow: 0 4px 16px rgba(237, 118, 44, 0.10);
-}
-
-[data-theme="dark"] .st-card-featured {
-  border-left-color: var(--blue-400);
 }
 
 [data-theme="dark"] .st-card-featured:hover {
@@ -495,18 +518,15 @@ h1.title {
 .st-card.newsletter-card {
   background:       var(--surface-raised);
   border-color:     var(--border-default);
-  border-top:       3px solid var(--orange-400);
 }
 
 .st-card.newsletter-card:hover {
-  border-top-color: var(--orange-500);
   transform:        none;
   box-shadow:       var(--card-shadow);
 }
 
 [data-theme="dark"] .st-card.newsletter-card {
   background:       var(--neutral-800);
-  border-top-color: var(--blue-500);
 }
 
 [data-theme="dark"] .st-card.newsletter-card:hover {
@@ -562,7 +582,7 @@ h1.title {
 :root .quote-st,
 [data-theme="light"] .quote-st { color: var(--text-primary); }
 
-[data-theme="dark"] .quote-st  { color: var(--text-on-dark); }
+[data-theme="dark"] .quote-st  {color: var(--blue-200);}
 
 /* Quote icon color */
 :root .quote-st .op-50,
@@ -599,6 +619,11 @@ h1.title {
 [data-theme="light"] .surface-dark-st .section-header-st { color: var(--text-heading); }
 
 [data-theme="dark"] .surface-dark-st .section-header-st  { color: var(--neutral-50); }
+
+:root .surface-dark-st .text-white,
+[data-theme="light"] .surface-dark-st .text-white {
+  color: var(--text-heading) !important;
+}
 
 /* Testimonial avatar ring */
 .testimonial-img-st {
@@ -930,8 +955,8 @@ p.country {
 
 .c-icon {
   flex-shrink:      0;
-  width:            38px;
-  height:           38px;
+  width:            44px;
+  height:           44px;
   border-radius:    8px;
   display:          flex;
   align-items:      center;
@@ -972,7 +997,7 @@ p.country {
 
 .community-list-st > li > .c-icon {
   flex-shrink: 0;
-  width:       20px;
+  width:       28px;
   text-align:  center;
   padding-top: 2px;
   font-size:   var(--text-base);

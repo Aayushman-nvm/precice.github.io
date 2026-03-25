@@ -1185,3 +1185,14 @@ p.country {
   color:        var(--neutral-0) !important;
   transform:    translateY(-1px);
 }
+
+.hero-brand {
+  display:        inline-flex;  /* inline so it sits naturally in the h1 text flow */
+  vertical-align: middle;
+  margin-left:    6px;
+}
+
+[data-theme="dark"] .hero-image-wrapper img {
+  filter: invert(1) hue-rotate(180deg);
+  opacity: 0.92;
+}

@@ -10,7 +10,13 @@ layout: landing_page
 <div class="container hero-padding">
   <div class="row align-items-center">
     <div class="col-lg-6">
-      <h1 class="title no-anchor mb-3">Welcome to <img src="images/preCICE_logo_42px.svg" alt="preCICE" class="hero-logo-img"></h1>
+      <h1 class="title no-anchor mb-3">
+  Welcome to
+  <a class="precice-nav__brand hero-brand" href="{{ site.url }}" tabindex="-1" aria-hidden="true">
+    <img src="{{ site.baseurl }}/images/icon_filled.svg" alt="" aria-hidden="true" height="42">
+    <img src="{{ site.baseurl }}/images/preCICE_text_28px.svg" alt="preCICE" height="42">
+  </a>
+</h1>
       <h2 class="subtitle no-anchor mb-4">The coupling library for partitioned multi-physics simulations.</h2>
       <div class="action-button-container d-flex flex-wrap gap-3 mb-5">
         <span id="github-button">

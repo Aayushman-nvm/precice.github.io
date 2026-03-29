@@ -791,7 +791,6 @@ pre code {
 .dropdown-menu {
   background-color: var(--card-bg);
   border: 1px solid var(--border-default);
-  box-shadow: var(--card-shadow-hover);
   border-radius: 8px;
 }
 .dropdown-item {
@@ -1122,7 +1121,6 @@ body.precice-mobile-open .precice-nav {
 .precice-nav__search .ais-search-box--input:focus {
   background-color: rgba(10, 118, 187, 0.05) !important;
   border-color:     var(--nav-active-underline) !important;
-  box-shadow:       0 0 0 3px rgba(237, 118, 44, 0.20) !important;
 }
 [data-theme="dark"] .precice-nav__search .ais-search-box--input:focus {
   background-color: rgba(10, 118, 187, 0.12) !important;
@@ -1227,7 +1225,6 @@ body.precice-mobile-open .precice-nav {
   background-color: var(--card-bg);
   border:           1px solid var(--border-default);
   border-radius:    12px;
-  box-shadow:       var(--card-shadow-hover);
   padding:          8px;
   min-width:        215px;
   right:            0    !important;
@@ -1487,7 +1484,7 @@ body.precice-mobile-open   { overflow: hidden; }
   --footer-bg2:        var(--neutral-800);
   --footer-bg3:        var(--neutral-850, #161b2e); /* between 800 and 900 */
   --footer-accent:     var(--blue-400);        /* blue accent in dark footer */
-  --footer-accent2:    var(--orange-400);      /* orange counts/highlights on dark */
+  --footer-accent2:    var(--blue-400);      /* orange counts/highlights on dark */
   --footer-muted:      var(--neutral-400);     /* WCAG AA on near-black */
   --footer-col-title:  var(--neutral-200);     /* crisp column headings on dark */
 }
@@ -1568,6 +1565,10 @@ footer.precice-footer a:visited {
 }
 
 .precice-footer__contrib-count span {
+  color: var(--footer-accent2);
+}
+
+[data-theme="dark"] .precice-footer__contrib-count span {
   color: var(--footer-accent2);
 }
 

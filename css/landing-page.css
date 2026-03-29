@@ -325,14 +325,12 @@ h1.title {
 :root .st-card:hover,
 [data-theme="light"] .st-card:hover {
   border-color: var(--orange-400);
-  box-shadow:   0 4px 16px rgba(237, 118, 44, 0.10), 0 12px 40px rgba(237, 118, 44, 0.06);
   transform:    translateY(-4px);
 }
 
 /* Dark mode hover — blue accent */
 [data-theme="dark"] .st-card:hover {
   border-color: var(--blue-400);
-  box-shadow:   var(--card-shadow-hover);
   transform:    translateY(-4px);
 }
 
@@ -474,13 +472,11 @@ h1.title {
 [data-theme="light"] .st-adapter-link:hover .st-card-mini {
   transform:    translateY(-2px);
   border-color: var(--orange-400);
-  box-shadow:   0 4px 12px rgba(237, 118, 44, 0.10);
 }
 
 [data-theme="dark"] .st-adapter-link:hover .st-card-mini {
   transform:    translateY(-2px);
   border-color: var(--blue-400);
-  box-shadow:   var(--card-shadow-hover);
 }
 
 /* ── All adapters circle (used in HTML, was missing) ── */
@@ -523,7 +519,6 @@ h1.title {
 
 .st-card.newsletter-card:hover {
   transform:        none;
-  box-shadow:       var(--card-shadow);
 }
 
 [data-theme="dark"] .st-card.newsletter-card {
@@ -552,13 +547,11 @@ h1.title {
 [data-theme="light"] .st-card-dark {
   background:   var(--neutral-0);
   border:       1px solid var(--orange-200);
-  box-shadow:   0 2px 8px rgba(237, 118, 44, 0.06);
 }
 
 :root .st-card-dark:hover,
 [data-theme="light"] .st-card-dark:hover {
   border-color: var(--orange-400);
-  box-shadow:   0 4px 20px rgba(237, 118, 44, 0.12);
   transform:    translateY(-2px);
 }
 
@@ -589,7 +582,7 @@ h1.title {
 :root .quote-st .op-50,
 [data-theme="light"] .quote-st .op-50 { color: var(--orange-400); opacity: 0.65; }
 
-[data-theme="dark"] .quote-st .op-50  { opacity: 0.5; }
+[data-theme="dark"] .quote-st .op-50  { color: var(--blue-200); opacity: 0.5; }
 
 /* Quote links */
 :root .st-card-dark .quote-st a,
@@ -603,7 +596,7 @@ h1.title {
   color: var(--orange-600) !important;
 }
 
-[data-theme="dark"] .st-card-dark .quote-st a { color: var(--neutral-100) !important; }
+[data-theme="dark"] .st-card-dark .quote-st a:hover { color: var(--blue-400) !important; }
 
 /* Testimonial attribution */
 :root .st-card-dark .fw-bold,
@@ -724,7 +717,6 @@ h1.title {
 
 .book-container-st:hover .book-shadow {
   transform:  rotateY(-10deg) rotateX(4deg) scale(1.05);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
 }
 
 .paper-thumb { border-radius: 6px; }
@@ -1077,7 +1069,6 @@ p.country {
 .uni-link:hover,
 .github-card-st:hover {
   border-color: var(--orange-400);
-  box-shadow:   0 2px 10px rgba(237, 118, 44, 0.08);
 }
 
 [data-theme="dark"] .uni-link,

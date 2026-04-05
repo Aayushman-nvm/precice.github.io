@@ -1,0 +1,41 @@
+{% if page.sidebar == "docs_sidebar" or page.sidebar == "tutorial_sidebar" %}
+  {% assign words = content | strip_html | number_of_words %}
+  {% assign minutes = words | divided_by: 200 %}
+  {% if minutes == 0 %}
+    {% assign minutes = 1 %}
+  {% endif %}
+
+  <div class="read-time">
+    <i class="fa-regular fa-clock" aria-hidden="true"></i> <span>{{ minutes }} min read</span>
+  </div>
+
+  <style>
+  .read-time {
+    display: inline-block;
+    background-color: #f5f5f5;
+    border: 2px solid #0066cc;
+    padding: 10px 15px;
+    margin: 20px 0;
+    font-size: 0.95em;
+    color: #333;
+    border-radius: 3px;
+  }
+  
+  .read-time i {
+    color: #0066cc;
+    margin-right: 8px;
+    font-size: 1.1em;
+  }
+  
+  .read-time span {
+    font-weight: 500;
+  }
+
+  @media (max-width: 768px) {
+    .read-time {
+      margin: 15px 0;
+      font-size: 0.9em;
+    }
+  }
+  </style>
+{% endif %}

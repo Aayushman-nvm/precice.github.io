@@ -1,6 +1,6 @@
 {
   "source": "preCICE Discourse (FAQ)",
-  "generated_at": "2026-04-19T07:14:27.499517",
+  "generated_at": "2026-04-20T08:01:10.033511",
   "topics": [
     {
       "id": 44,
@@ -21,7 +21,7 @@
       "url": "https://precice.discourse.group/t/can-precice-be-used-for-volume-coupling/27",
       "created_at": "2019-09-23T20:55:55.190Z",
       "last_posted_at": "2025-08-11T13:12:45.035Z",
-      "views": 3274,
+      "views": 3275,
       "posts_count": 10,
       "like_count": 2,
       "excerpt": "I read that you do surface coupling?\nDo you support volume coupling too?"
@@ -45,7 +45,7 @@
       "url": "https://precice.discourse.group/t/can-precice-be-used-with-moving-meshes/53",
       "created_at": "2019-10-14T12:30:50.463Z",
       "last_posted_at": "2024-06-06T02:01:13.798Z",
-      "views": 1564,
+      "views": 1565,
       "posts_count": 29,
       "like_count": 7,
       "excerpt": "What happens when the interface is moving?"
@@ -177,7 +177,7 @@
       "url": "https://precice.discourse.group/t/how-can-i-use-precice-with-a-non-default-mpi-implementation/35",
       "created_at": "2019-09-28T11:31:33.546Z",
       "last_posted_at": "2019-10-24T14:28:22.568Z",
-      "views": 593,
+      "views": 594,
       "posts_count": 3,
       "like_count": 0,
       "excerpt": "When I build preCICE, it uses the default MPI implementation. How could I use e.g. MPICH?"
@@ -333,7 +333,7 @@
       "url": "https://precice.discourse.group/t/how-does-precice-handle-data-mapping-for-non-matching-domain-decompositions/42",
       "created_at": "2019-10-10T19:28:48.005Z",
       "last_posted_at": "2019-10-10T19:40:04.456Z",
-      "views": 743,
+      "views": 744,
       "posts_count": 7,
       "like_count": 0,
       "excerpt": ""

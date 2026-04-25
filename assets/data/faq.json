@@ -1,6 +1,6 @@
 {
   "source": "preCICE Discourse (FAQ)",
-  "generated_at": "2026-04-24T07:58:02.789580",
+  "generated_at": "2026-04-25T07:10:28.984125",
   "topics": [
     {
       "id": 44,
@@ -9,7 +9,7 @@
       "url": "https://precice.discourse.group/t/what-are-best-practices-to-write-a-new-adapter/44",
       "created_at": "2019-10-10T20:26:55.265Z",
       "last_posted_at": "2026-01-03T13:02:38.553Z",
-      "views": 1534,
+      "views": 1536,
       "posts_count": 4,
       "like_count": 1,
       "excerpt": "Alex started a good discussion on the mailing list (May 3, 2019) about best practices when writing a new adapter:\nI wanted to ask if there are some additional guidelines on how to write good adapters for preCICE. I have the feeling that I might think\u2026"
@@ -21,7 +21,7 @@
       "url": "https://precice.discourse.group/t/can-precice-be-used-for-volume-coupling/27",
       "created_at": "2019-09-23T20:55:55.190Z",
       "last_posted_at": "2025-08-11T13:12:45.035Z",
-      "views": 3276,
+      "views": 3277,
       "posts_count": 10,
       "like_count": 2,
       "excerpt": "I read that you do surface coupling?\nDo you support volume coupling too?"
@@ -33,7 +33,7 @@
       "url": "https://precice.discourse.group/t/restarting-coupled-fsi-simulation-with-precice/117",
       "created_at": "2019-12-06T09:10:16.329Z",
       "last_posted_at": "2024-07-03T15:56:51.883Z",
-      "views": 2377,
+      "views": 2380,
       "posts_count": 11,
       "like_count": 5,
       "excerpt": "Dear all,\nI am trying to validate my fluid and structure mesh for the FSI1 case of cylinder-flap test. As the refinement of the fluid and structure mesh increases, it is difficult for implicit FSI coupling to converge. Therefore, my idea is to use a \u2026"
@@ -45,7 +45,7 @@
       "url": "https://precice.discourse.group/t/can-precice-be-used-with-moving-meshes/53",
       "created_at": "2019-10-14T12:30:50.463Z",
       "last_posted_at": "2024-06-06T02:01:13.798Z",
-      "views": 1565,
+      "views": 1566,
       "posts_count": 29,
       "like_count": 7,
       "excerpt": "What happens when the interface is moving?"
@@ -69,7 +69,7 @@
       "url": "https://precice.discourse.group/t/is-there-a-cmake-module-findprecice-cmake/37",
       "created_at": "2019-10-08T07:51:03.489Z",
       "last_posted_at": "2024-01-15T11:45:18.092Z",
-      "views": 751,
+      "views": 752,
       "posts_count": 3,
       "like_count": 0,
       "excerpt": "Let\u2019s say a group builds their in-house code with cmake and they link all their external dependencies via cmake modules, a natural question would be: is there also such a thing for preCICE?"
@@ -93,7 +93,7 @@
       "url": "https://precice.discourse.group/t/how-do-i-cite-precice/32",
       "created_at": "2019-09-23T21:04:21.131Z",
       "last_posted_at": "2023-05-10T14:05:11.297Z",
-      "views": 814,
+      "views": 816,
       "posts_count": 4,
       "like_count": 0,
       "excerpt": "I used preCICE in my research and want to cite it.\nWhat citation should I use?"
@@ -153,7 +153,7 @@
       "url": "https://precice.discourse.group/t/3d-1d-coupling/388",
       "created_at": "2020-11-13T07:39:48.596Z",
       "last_posted_at": "2020-11-16T08:51:56.471Z",
-      "views": 1689,
+      "views": 1690,
       "posts_count": 4,
       "like_count": 1,
       "excerpt": "Hi!\nis there a way to couple a 1D simulation (OpenModelica) with a 3D simulation (OpenFoam)?\nthx"
@@ -165,7 +165,7 @@
       "url": "https://precice.discourse.group/t/can-precice-be-used-for-one-way-coupling/28",
       "created_at": "2019-09-23T20:58:29.741Z",
       "last_posted_at": "2020-04-27T11:07:12.123Z",
-      "views": 2671,
+      "views": 2672,
       "posts_count": 5,
       "like_count": 0,
       "excerpt": "Can I couple two participants one-way?"
@@ -201,7 +201,7 @@
       "url": "https://precice.discourse.group/t/why-should-i-pick-precice-over-other-coupling-software/31",
       "created_at": "2019-09-23T21:03:23.542Z",
       "last_posted_at": "2019-10-14T20:32:18.079Z",
-      "views": 1166,
+      "views": 1167,
       "posts_count": 4,
       "like_count": 0,
       "excerpt": "There are many other coupling solutions out there.\nMany research groups write their custom coupling framework.\nWhy should I use preCICE?"
@@ -216,7 +216,7 @@
       "views": 582,
       "posts_count": 2,
       "like_count": 0,
-      "excerpt": "Is preCICE indeed free software, or is it too good to be true?"
+      "excerpt": ""
     },
     {
       "id": 56,
@@ -252,7 +252,7 @@
       "views": 515,
       "posts_count": 2,
       "like_count": 0,
-      "excerpt": ""
+      "excerpt": "Can the individual solvers run on two different platforms on two different machines in/out of a network?"
     },
     {
       "id": 52,
@@ -273,7 +273,7 @@
       "url": "https://precice.discourse.group/t/do-you-test-precice/26",
       "created_at": "2019-09-23T20:54:58.538Z",
       "last_posted_at": "2019-10-14T12:18:09.436Z",
-      "views": 585,
+      "views": 588,
       "posts_count": 2,
       "like_count": 0,
       "excerpt": ""
@@ -309,7 +309,7 @@
       "url": "https://precice.discourse.group/t/can-precice-be-used-with-adaptive-meshes/29",
       "created_at": "2019-09-23T20:59:30.598Z",
       "last_posted_at": "2019-10-08T12:19:14.122Z",
-      "views": 818,
+      "views": 819,
       "posts_count": 2,
       "like_count": 0,
       "excerpt": ""
